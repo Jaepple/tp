@@ -19,14 +19,14 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Code Quality
 
-### Jane Doe
+### Eunice Gwee
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/eunicegwee.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/eunicegwee)]
+[[portfolio](team/johndoe.m)]
 
-* Role: Team Lead
+* Role: Developer
 * Responsibilities: UI
 
 ### Johnny Doe
