@@ -274,123 +274,144 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+* Developers who prefer keyboard-driven workflows
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: Vim-ify the experience for developers who are more used to the Vim interface — provide a keyboard-first, modal interaction model that lets developers navigate and edit contacts without leaving the keyboard so they feel comfortable and at home.
 
 
 ### User stories
 
-Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
-
-| Priority | As a …​                                    | I want to …​                 | So that I can…​                                                        |
-|----------|--------------------------------------------|------------------------------|------------------------------------------------------------------------|
-| `* * *`  | new user                                   | see usage instructions       | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person             |                                                                        |
-| `* * *`  | user                                       | delete a person              | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name        | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name         | locate a person easily                                                 |
-
-*{More to be added}*
+| ID   | Priority | As a …​                                    | I want to …​                 | So that I can…​                                                        |
+|------|----------|--------------------------------------------|------------------------------|------------------------------------------------------------------------|
+| US-01 | Medium   | new user                                   | see sample contacts when I first launch the app | I understand how entries are structured                 |
+| US-02 | Medium   | new user                                   | access a help guide         | I know what commands are available                 |
+| US-03 | High     | new user                                   | add a contact with name, phone number, and email | I can store basic information             |
+| US-04 | Medium   | new user                                   | assign tags when adding a contact | I can categorize people immediately           |
+| US-05 | Medium   | new user                                   | visually distinguish fields (e.g., name, phone, email, tags) using different colours | visually distinguish fields (e.g., name, phone, email, tags) using different colours |
+| US-06 | High     | user                                       | list all contacts           | I can review everyone I've added                 |
+| US-07 | High     | user                                       | search by name             | I can quickly find someone's contact details                 |
+| US-08 | Low      | user                                       | copy contact information easily | I can paste it into other apps like Telegram or email                 |
+| US-09 | Medium   | user with multiple contacts sharing the same name | see additional identifiers (e.g., tags or email preview) in search results | I can differentiate them easily                 |
+| US-10 | Medium   | user                                       | search using both name and tag together | I can narrow down results more precisely                 |
+| US-11 | High     | user                                       | rely on consistent UI behaviour | the app feels predictable and efficient                 |
+| US-12 | Medium   | user                                       | filter contacts by tag     | I can view only people in a specific role or project                 |
+| US-13 | High     | user                                       | view full details of a selected contact | I can verify I have the correct person                 |
+| US-14 | Medium   | user                                       | sort search results meaningfully | similar names do not confuse me                 |
+| US-15 | Medium   | user                                       | mark certain contacts as favorites | I can access frequently contacted people faster                 |
+| US-16 | Medium   | user                                       | add tags to an existing contact | I can update their roles over time                 |
+| US-17 | High     | user                                       | edit a specific tag without deleting other tags | I do not accidentally lose information                 |
+| US-18 | Medium   | user                                       | remove a single tag from a contact | I can keep tags accurate                 |
+| US-19 | Medium   | user                                       | view all existing tags in the system | I know what categories I have created                 |
+| US-20 | Low      | user                                       | bulk-edit tags for multiple contacts | I save time when projects change                 |
+| US-21 | High     | user                                       | avoid accidental deletion of all tags when editing one tag | my data remains intact                 |
+| US-22 | High     | user                                       | edit a contact's details   | I can update outdated information                 |
+| US-23 | Medium   | user                                       | delete a contact by specifying something more meaningful than index (e.g., name + tag) | I do not delete the wrong person                 |
+| US-24 | High     | user                                       | preview the contact before confirming deletion | I avoid mistakes                 |
+| US-25 | Medium   | user                                       | undo my last action        | I can recover from accidental deletions                 |
+| US-26 | Low      | user                                       | archive contacts instead of permanently deleting them | I can restore them later if needed                 |
+| US-27 | High     | user                                       | receive confirmation before clearing the entire list | I do not lose data impulsively                 |
+| US-28 | Medium   | user                                       | back up my contact list    | I do not permanently lose information                 |
+| US-29 | Medium   | user                                       | restore from a backup      | I can recover after accidental clearing                 |
+| US-30 | Medium   | user with over 100 contacts                | rely on powerful search instead of scrolling | I can find people efficiently                 |
+| US-31 | Low      | user                                       | paginate or limit displayed results | large lists are manageable                 |
+| US-32 | Medium   | user                                       | group contacts by tag      | I can view teams separately                 |
+| US-33 | Low      | user managing multiple teams               | create logical groupings   | work and personal contacts do not mix                 |
+| US-34 | Low      | user                                       | quickly clear completed or irrelevant contacts | the list remains relevant                 |
+| US-35 | Medium   | user                                       | use the app for both professional and personal contacts | everything is centralized                 |
+| US-36 | Medium   | user                                       | tag contacts as "family" or "friends" | I can separate them logically                 |
+| US-37 | Low      | user                                       | search by location (e.g., 'Bishan') | I can find someone nearby                 |
+| US-38 | Medium   | user                                       | store address information   | I can plan gatherings easily                 |
+| US-39 | High     | user                                       | quickly retrieve a phone number | I can call someone immediately                 |
+| US-40 | High     | user                                       | quickly retrieve an email address | I can send messages efficiently                 |
+| US-41 | Medium   | frequent user                              | use keyboard shortcuts     | I can work faster                 |
+| US-42 | Medium   | frequent user                              | autocomplete contact names when typing | I reduce typing effort                 |
+| US-43 | Low      | frequent user                              | pin important contacts     | I do not need to search repeatedly                 |
+| US-44 | Low      | frequent user                              | view recently accessed contacts | I can quickly reconnect with them                 |
+| US-45 | Medium   | frequent user                              | search partial matches     | I do not need exact spelling                 |
+| US-46 | Medium   | user managing projects                     | group contacts by project  | I can easily manage and view team members for a specific project    |
+| US-47 | Medium   | user                                       | tag contacts by the programming language they use | I can search for a person who knows a specific language (e.g. Java) immediately |
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+#### Use Case 1: Updating a Contact's Role/Tag
 
-**Use case: Delete a person**
+**Goal:** A developer needs to update a contact's role/tag in the system for a new project. They need a way to easily find and modify the correct contact entry.
 
-**MSS**
+| Step | Action | Outcome/System Response | Corresponding User Story (Reference) |
+|------|--------|-------------------------|--------------------------------------|
+| 1 | Developer searches for the contact by name: `find n/Alice` | The Contact List Panel displays multiple entries for "Alice" along with their distinguishing tags and emails. | US-07 (Search by name), US-09 (Additional identifiers in search) |
+| 2 | Developer reviews the list and uses the index to select the correct "Alice": `select 3` | The Browser Panel displays the full details for Alice (index 3). | US-13 (View full details) |
+| 3 | Developer executes the edit command to add a new tag for the project: `edit 3 t/new-project` | The system updates the contact. Message displayed: `Updated contact: Alice. New tag 'new-project' added.` | US-16 (Add tags to an existing contact), US-22 (Edit contact details) |
+| 4 | Developer views the list to confirm the change: `list` | The Contact List Panel shows Alice (index 3) with the new tag displayed. | US-06 (List all contacts) |
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
 
-    Use case ends.
+#### Use Case 2: Safely Deleting an Outdated Contact
 
-**Extensions**
+**Goal:** A developer needs to safely delete an outdated contact entry while ensuring they don't accidentally remove the wrong person or lose valuable data.
 
-* 2a. The list is empty.
+| Step | Action | Outcome/System Response | Corresponding User Story (Reference) |
+|------|--------|-------------------------|--------------------------------------|
+| 1 | Developer issues the delete command using the currently displayed index: `delete 7` | The Result Display area shows a preview of contact 7 (Name, Phone, Email, Tags). Message displayed: `Contact to be deleted: \[Kai Jie, p/92345678, e/kj@work.com, t/FormerColleague\]. Are you sure you want to delete?` (MVP simplifies confirmation in the UI). | US-24 (Preview contact before deletion) |
+| 2 | Developer verifies the preview details (Name, Phone) are correct for Kai Jie. | N/A (verification step) | US-13 (View full details, implicitly used for verification) |
+| 3 | Developer confirms the deletion (assume a future confirmation mechanism is added, or MVP immediate action): `delete 7 confirm` | The contact is removed from the list. Message displayed: `Deleted contact: Kai Jie.` The Contact List Panel updates. | US-24 (Preview/Safer deletion) |
+| 4 | Developer immediately realizes they deleted the wrong person and attempts to recover: `undo` | The system restores the deleted contact. Message displayed: `Restored contact: \[Deleted Contact Name\]`. | US-25 (Undo last action) |
 
-  Use case ends.
 
-* 3a. The given index is invalid.
+#### Use Case 3: Initial Setup and Categorization
 
-    * 3a1. AddressBook shows an error message.
+**Goal:** A developer needs to quickly add new contacts and categorize them using tags for effective organization and later filtering.
 
-      Use case resumes at step 2.
+| Step | Action | Outcome/System Response | Corresponding User Story (Reference) |
+|------|--------|-------------------------|--------------------------------------|
+| 1 | Developer adds a new contact and tags them simultaneously: `add n/Benny p/98765432 e/benny@biz.com t/Marketing t/Partner` | Message displayed: `New contact added: Benny.` The new contact appears in the list view. | US-03 (Add contact), US-04 (Assign tags when adding) |
+| 2 | Developer quickly adds another contact: `add n/Chloe p/88887777 e/chloe@rnd.com t/Engineer` | Message displayed: `New contact added: Chloe.` | US-03 (Add contact) |
+| 3 | Developer filters the list to view only their marketing contacts: `filter t/Marketing` | The Contact List Panel is updated to show only contacts tagged 'Marketing' (e.g., Benny). Message displayed: `Filtered contacts by tag: Marketing.` | US-12 (Filter contacts by tag) |
 
-*{More to be added}*
 
-### Non-Functional Requirements
+### Non-Functional Requirements (NFRs)
 
-1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+#### 1. Performance Requirements (P)
 
-*{More to be added}*
+| Requirement ID | Requirement | Description | Rationale |
+|---------------:|-------------|-------------|-----------|
+| P-01 | Search Speed | The application must return search results (e.g., using `find n/NAME`) in less than 0.5 seconds for a contact list size of up to 500 entries. | Ensure a fast, keyboard-driven workflow, matching the "Vim-ify the experience" value proposition.
+| P-02 | Startup Time | The application must fully load and be ready to accept commands within 1.0 second. | Maintain user flow efficiency, especially for a CLI tool used throughout the day.
+| P-03 | CRUD Operation Speed | Basic operations (Add, Delete, Edit) must complete in less than 0.1 seconds after command execution. | Core contact management should be instantaneous.
+
+#### 2. Usability Requirements (U)
+
+| Requirement ID | Requirement | Description | Rationale |
+|---------------:|-------------|-------------|-----------|
+| U-01 | Vim-like UI Consistency | The CLI interface must maintain visual consistency across all command outputs (US-11). It should leverage color coding (US-05) to clearly distinguish fields (Name, Phone, Email, Tags). | Meet the core value proposition: "Vim-ify the experience." |
+| U-02 | Error Clarity | All error messages must be clear, concise, and explicitly suggest the correct command format or parameter requirement. | Enhance developer experience by providing immediate, actionable feedback. |
+| U-03 | Help Accessibility | A command (`help`) must immediately display a comprehensive guide of all available commands and their formats (US-02). | Essential for initial usability and quick command lookup. |
+
+#### 3. Scalability Requirements (S)
+
+| Requirement ID | Requirement | Description | Rationale |
+|---------------:|-------------|-------------|-----------|
+| S-01 | Contact Capacity | The application must reliably handle and store a minimum of 500 unique contact entries without a noticeable degradation in performance (P-01). | Accommodate a lead developer's potentially large network (Scenario 20th use mentions 100+ contacts). |
+| S-02 | Tag Capacity | The system must support a minimum of 50 unique tags and allow any single contact to have up to 10 tags. | Allow for rich categorization of contacts based on roles, projects, and personal context. |
+
+#### 4. Reliability Requirements (R)
+
+| Requirement ID | Requirement | Description | Rationale |
+|---------------:|-------------|-------------|-----------|
+| R-01 | Data Persistence | All contact data must be automatically saved/persisted upon successful execution of any modifying command (Add, Edit, Delete, Clear). | Prevent data loss in case of unexpected shutdown. |
+| R-02 | Input Validation | The system must strictly enforce parameter validation rules (e.g., 8-digit phone, valid email format) as defined in the MVP specification for the `add` command. | Ensure data integrity (US-03, US-39, US-40). |
+| R-03 | Safe Clear/Delete | The system must require a distinct confirmation step before executing the `clear` command (US-27) or any action that deletes data (US-24). | Prevent accidental loss of a large amount of data. |
+
 
 ### Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
-
---------------------------------------------------------------------------------------------------------------------
-
-## **Appendix: Instructions for manual testing**
-
-Given below are instructions to test the app manually.
-
-<box type="info" seamless>
-
-**Note:** These instructions only provide a starting point for testers to work on;
-testers are expected to do more *exploratory* testing.
-
-</box>
-
-### Launch and shutdown
-
-1. Initial launch
-
-   1. Download the jar file and copy into an empty folder
-
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
-
-1. Saving window preferences
-
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
-
-   1. Re-launch the app by double-clicking the jar file.<br>
-       Expected: The most recent window size and location is retained.
-
-1. _{ more test cases …​ }_
-
-### Deleting a person
-
-1. Deleting a person while all persons are being shown
-
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-
-   1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
-
-1. _{ more test cases …​ }_
-
-### Saving data
-
-1. Dealing with missing/corrupted data files
-
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
-
-1. _{ more test cases …​ }_
+| Term          | Definition                                                                                                                                                                                                                    |
+|---------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 0rb1t         | The name of the contact management application.                                                                                                                                                                               |
+| CLI           | Command Line Interface. The environment in which 0rb1t operates, taking text-based commands.                                                                                                                                  |
+| Persona       | A concrete representation of the target user, used internally for design reference. (e.g., Brandon)                                                                                                                           |
+| MVP           | Minimum Viable Product. The version of the product containing only the essential features (Add, List, View, Delete, Clear) required to satisfy initial user needs.                                                            |
+| Index         | The sequential, positive integer displayed next to a contact entry in the Contact List Panel, used to reference the contact for commands like `select` or `delete`.                                                           |
+| Tag           | A label or keyword assigned to a contact for categorization (e.g., "Developer", "Marketing", "Friend").                                                                                                                       |
+| Browser Panel | The dedicated UI area in the CLI that displays the full, organized details of a single, currently selected contact.                                                                                                           |
+| US-xx         | A specific User Story ID used to track product requirements.                                                                                                                                                                  |
+| Developer     | The primary user of the 0rb1t application. The target user profile is defined as "Developers who prefer keyboard-driven workflows". |
