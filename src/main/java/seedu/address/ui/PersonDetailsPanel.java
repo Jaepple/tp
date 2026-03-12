@@ -24,6 +24,18 @@ public class PersonDetailsPanel extends UiPart<Region> {
         super(FXML);
     }
 
+    public void display(Person person) {
+        if (person == null) {
+            clear();
+            return;
+        }
+
+        name.setText(person.getName().fullName);
+        phone.setText(person.getPhone().value);
+        email.setText(person.getEmail().value);
+        address.setText(person.getAddress().value);
+    }
+
     private void clear() {
         name.setText("");
         phone.setText("");

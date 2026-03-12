@@ -17,16 +17,31 @@ public class PersonListPanel extends UiPart<Region> {
     private static final String FXML = "PersonListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
 
+    private final PersonDetailsPanel personDetailsPanel;
+
     @FXML
     private ListView<Person> personListView;
 
     /**
      * Creates a {@code PersonListPanel} with the given {@code ObservableList}.
      */
-    public PersonListPanel(ObservableList<Person> personList) {
+    public PersonListPanel(ObservableList<Person> personList, PersonDetailsPanel personDetailsPanel) {
         super(FXML);
+
+        this.personDetailsPanel = personDetailsPanel;
+
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
+
+        personListView.getSelectionModel()
+                .selectedItemProperty()
+                .addListener((observable, oldValue, newValue) -> {
+                    personDetailsPanel.display(newValue);
+                });
+
+        if (!personList.isEmpty()) {
+            personListView.getSelectionModel().selectFirst();
+        }
     }
 
     /**
