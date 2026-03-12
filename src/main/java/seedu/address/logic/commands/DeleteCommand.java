@@ -25,6 +25,10 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
 
+    public static final String MESSAGE_CONFIRM_DELETE =
+            "Are you sure you want to delete this person?\n%1$s\n"
+            + "Type 'yes' to confirm, or any other command to cancel.";
+
     private final Index targetIndex;
 
     public DeleteCommand(Index targetIndex) {
@@ -41,8 +45,14 @@ public class DeleteCommand extends Command {
         }
 
         Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deletePerson(personToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, Messages.format(personToDelete)));
+        return new CommandResult(
+                String.format(MESSAGE_CONFIRM_DELETE, Messages.format(personToDelete)),
+                false, false,
+                () -> {
+                    model.deletePerson(personToDelete);
+                    return new CommandResult(
+                            String.format(MESSAGE_DELETE_PERSON_SUCCESS, Messages.format(personToDelete)));
+                });
     }
 
     @Override

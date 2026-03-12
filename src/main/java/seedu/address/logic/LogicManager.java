@@ -3,6 +3,7 @@ package seedu.address.logic;
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
 import java.nio.file.Path;
+import java.util.function.Supplier;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -32,6 +33,7 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final AddressBookParser addressBookParser;
+    private Supplier<CommandResult> pendingConfirmation = null;
 
     /**
      * Constructs a {@code LogicManager} with the given {@code Model} and {@code Storage}.
@@ -47,8 +49,21 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
-        commandResult = command.execute(model);
+        String trimmedInput = commandText.trim().toLowerCase();
+
+        if (pendingConfirmation != null && trimmedInput.equals("yes")) {
+            Supplier<CommandResult> action = pendingConfirmation;
+            pendingConfirmation = null;
+            commandResult = action.get();
+        } else {
+            pendingConfirmation = null;
+            Command command = addressBookParser.parseCommand(commandText);
+            commandResult = command.execute(model);
+
+            if (commandResult.isAwaitingConfirmation()) {
+                pendingConfirmation = commandResult.getConfirmationAction();
+            }
+        }
 
         try {
             storage.saveAddressBook(model.getAddressBook());

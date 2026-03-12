@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
+import java.util.function.Supplier;
 
 import seedu.address.commons.util.ToStringBuilder;
 
@@ -19,13 +20,26 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** Action to execute when the user confirms. Null if no confirmation is needed. */
+    private final Supplier<CommandResult> confirmationAction;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
+            Supplier<CommandResult> confirmationAction) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.confirmationAction = confirmationAction;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields,
+     * and no confirmation action.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+        this(feedbackToUser, showHelp, exit, null);
     }
 
     /**
@@ -48,6 +62,14 @@ public class CommandResult {
         return exit;
     }
 
+    public boolean isAwaitingConfirmation() {
+        return confirmationAction != null;
+    }
+
+    public Supplier<CommandResult> getConfirmationAction() {
+        return confirmationAction;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -62,12 +84,13 @@ public class CommandResult {
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
+                && exit == otherCommandResult.exit
+                && isAwaitingConfirmation() == otherCommandResult.isAwaitingConfirmation();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit);
+        return Objects.hash(feedbackToUser, showHelp, exit, isAwaitingConfirmation());
     }
 
     @Override
@@ -76,6 +99,7 @@ public class CommandResult {
                 .add("feedbackToUser", feedbackToUser)
                 .add("showHelp", showHelp)
                 .add("exit", exit)
+                .add("awaitingConfirmation", isAwaitingConfirmation())
                 .toString();
     }
 
