@@ -3,6 +3,7 @@ package seedu.address.logic;
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
 import java.nio.file.Path;
+import java.util.function.Supplier;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -24,6 +25,8 @@ import seedu.address.storage.Storage;
 public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_FORMAT = "Could not save data due to the following error: %s";
 
+    public static final String MESSAGE_COMMAND_CANCELLED = "Command cancelled.";
+
     public static final String FILE_OPS_PERMISSION_ERROR_FORMAT =
             "Could not save data to file %s due to insufficient permissions to write to the file or the folder.";
 
@@ -32,6 +35,7 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final AddressBookParser addressBookParser;
+    private Supplier<CommandResult> pendingConfirmation = null;
 
     /**
      * Constructs a {@code LogicManager} with the given {@code Model} and {@code Storage}.
@@ -47,8 +51,25 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
-        commandResult = command.execute(model);
+        String trimmedInput = commandText.trim().toLowerCase(java.util.Locale.ROOT);
+
+        if (pendingConfirmation != null) {
+            Supplier<CommandResult> action = pendingConfirmation;
+            pendingConfirmation = null;
+
+            if (trimmedInput.equals("yes")) {
+                commandResult = action.get();
+            } else {
+                commandResult = new CommandResult(MESSAGE_COMMAND_CANCELLED);
+            }
+        } else {
+            Command command = addressBookParser.parseCommand(commandText);
+            commandResult = command.execute(model);
+
+            if (commandResult.isAwaitingConfirmation()) {
+                pendingConfirmation = commandResult.getConfirmationAction();
+            }
+        }
 
         try {
             storage.saveAddressBook(model.getAddressBook());

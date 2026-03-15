@@ -1,6 +1,8 @@
 package seedu.address.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
@@ -20,6 +22,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -80,6 +83,49 @@ public class LogicManagerTest {
     public void execute_storageThrowsAdException_throwsCommandException() {
         assertCommandFailureForExceptionFromStorage(DUMMY_AD_EXCEPTION, String.format(
                 LogicManager.FILE_OPS_PERMISSION_ERROR_FORMAT, DUMMY_AD_EXCEPTION.getMessage()));
+    }
+
+    @Test
+    public void execute_deleteCommand_awaitingConfirmationDoesNotMutateModel() throws Exception {
+        // Add a person first so we can delete
+        Person amy = new PersonBuilder(AMY).withTags().build();
+        model.addPerson(amy);
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+
+        CommandResult result = logic.execute("delete 1");
+        assertTrue(result.isAwaitingConfirmation());
+        // Model should be unchanged after preview
+        assertEquals(expectedModel, model);
+    }
+
+    @Test
+    public void execute_deleteCommand_yesConfirmsThenDeletes() throws Exception {
+        Person amy = new PersonBuilder(AMY).withTags().build();
+        model.addPerson(amy);
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.deletePerson(amy);
+
+        logic.execute("delete 1");
+        CommandResult confirmResult = logic.execute("yes");
+
+        assertEquals(String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, Messages.format(amy)),
+                confirmResult.getFeedbackToUser());
+        assertEquals(expectedModel, model);
+    }
+
+    @Test
+    public void execute_deleteCommand_nonYesInputCancels() throws Exception {
+        Person amy = new PersonBuilder(AMY).withTags().build();
+        model.addPerson(amy);
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+
+        logic.execute("delete 1");
+        CommandResult cancelResult = logic.execute("no");
+
+        assertEquals(LogicManager.MESSAGE_COMMAND_CANCELLED, cancelResult.getFeedbackToUser());
+        // Model should be unchanged — person not deleted
+        assertFalse(cancelResult.isAwaitingConfirmation());
+        assertEquals(expectedModel, model);
     }
 
     @Test
