@@ -27,7 +27,7 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_CONFIRM_DELETE =
             "Are you sure you want to delete this person?\n%1$s\n"
-            + "Type 'yes' to confirm, or any other command to cancel.";
+            + "Type 'yes' to confirm. Any other input will be taken as no.";
 
     private final Index targetIndex;
 
