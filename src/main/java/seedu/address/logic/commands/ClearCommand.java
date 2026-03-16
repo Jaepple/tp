@@ -23,6 +23,6 @@ public class ClearCommand extends Command {
         return new CommandResult(MESSAGE_CONFIRM_CLEAR, false, false, () -> {
             model.setAddressBook(new AddressBook());
             return new CommandResult(MESSAGE_SUCCESS);
-        });
+        }, null);
     }
 }
