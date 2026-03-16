@@ -106,6 +106,7 @@ public class EditCommand extends Command {
         Set<Tag> updatedTags = new HashSet<>(personToEdit.getTags());
         updatedTags.addAll(tagsToAdd);
         updatedTags.removeAll(tagsToDelete);
+        // TODO: Handle tags
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
     }
