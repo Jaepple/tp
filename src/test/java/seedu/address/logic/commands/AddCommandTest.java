@@ -225,6 +225,7 @@ public class AddCommandTest {
      */
     private class ModelStubAcceptingPersonAdded extends ModelStub {
         final ArrayList<Person> personsAdded = new ArrayList<>();
+        final TagsRegistry tagsRegistry = new TagsRegistry(); // added tag registry
 
         @Override
         public boolean hasPerson(Person person) {
@@ -236,6 +237,17 @@ public class AddCommandTest {
         public void addPerson(Person person) {
             requireNonNull(person);
             personsAdded.add(person);
+            addTags(person); // update the tag registry as AddCommand expects
+        }
+
+        @Override
+        public TagsRegistry getTagsRegistry() {
+            return tagsRegistry;
+        }
+
+        @Override
+        public void addTags(Person person) {
+            tagsRegistry.addPerson(person); // minimal implementation
         }
 
         @Override
