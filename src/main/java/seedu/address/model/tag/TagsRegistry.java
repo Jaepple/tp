@@ -54,6 +54,13 @@ public class TagsRegistry {
     }
 
     /**
+     * Returns how many times a tag appears.
+     */
+    public int getTagCount(Tag tag) {
+        return tagCounts.getOrDefault(tag, 0);
+    }
+
+    /**
      * Internal helper to add a set of tags.
      */
     private void addTags(Set<Tag> tags) {
