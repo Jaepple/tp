@@ -7,9 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.logging.Logger;
-
-import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -44,8 +41,6 @@ public class AddCommand extends Command {
 
     private final Person toAdd;
 
-    private static final Logger logger = LogsCenter.getLogger(AddCommand.class);
-
     /**
      * Creates an AddCommand to add the specified {@code Person}
      */
@@ -63,6 +58,10 @@ public class AddCommand extends Command {
         }
 
         model.addPerson(toAdd);
+
+        TagsRegistry tagsRegistry = model.getTagsRegistry();
+        tagsRegistry.addPerson(toAdd);
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
     }
 
