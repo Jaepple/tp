@@ -21,6 +21,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.tag.TagsRegistry;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
@@ -45,6 +46,7 @@ public class MainApp extends Application {
     protected Storage storage;
     protected Model model;
     protected Config config;
+    protected TagsRegistry tagsRegistry;
 
     @Override
     public void init() throws Exception {
@@ -61,6 +63,9 @@ public class MainApp extends Application {
         storage = new StorageManager(addressBookStorage, userPrefsStorage);
 
         model = initModelManager(storage, userPrefs);
+
+        tagsRegistry = new TagsRegistry();
+        tagsRegistry.initialize(model.getAddressBook().getPersonList());
 
         logic = new LogicManager(model, storage);
 
