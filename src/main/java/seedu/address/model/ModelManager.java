@@ -84,6 +84,8 @@ public class ModelManager implements Model {
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
         this.addressBook.resetData(addressBook);
+        this.tagsRegistry.clear();
+        this.tagsRegistry.initialize(this.addressBook.getPersonList());
     }
 
     @Override
