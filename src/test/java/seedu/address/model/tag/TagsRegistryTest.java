@@ -57,10 +57,10 @@ public class TagsRegistryTest {
         assertTrue(allTags.contains(new Tag("classmates")));
         assertTrue(allTags.contains(new Tag("colleagues")));
 
-        assertEquals(1, tagsRegistry.getTagCount(new Tag("neighbours")));
-        assertEquals(1, tagsRegistry.getTagCount(new Tag("family")));
-        assertEquals(1, tagsRegistry.getTagCount(new Tag("classmates")));
-        assertEquals(1, tagsRegistry.getTagCount(new Tag("colleagues")));
+        assertEquals(1, tagsRegistry.getCount(new Tag("neighbours")));
+        assertEquals(1, tagsRegistry.getCount(new Tag("family")));
+        assertEquals(1, tagsRegistry.getCount(new Tag("classmates")));
+        assertEquals(1, tagsRegistry.getCount(new Tag("colleagues")));
     }
 
     @Test
@@ -74,8 +74,8 @@ public class TagsRegistryTest {
 
         tagsRegistry.addPerson(newPerson);
 
-        assertEquals(2, tagsRegistry.getTagCount(new Tag("family"))); // existing tag incremented
-        assertEquals(1, tagsRegistry.getTagCount(new Tag("friend"))); // new tag added
+        assertEquals(2, tagsRegistry.getCount(new Tag("family"))); // existing tag incremented
+        assertEquals(1, tagsRegistry.getCount(new Tag("friend"))); // new tag added
     }
 
     @Test
@@ -86,6 +86,6 @@ public class TagsRegistryTest {
 
         tagsRegistry.removePerson(removePerson);
 
-        assertEquals(0, tagsRegistry.getTagCount(new Tag("neighbours")));
+        assertEquals(0, tagsRegistry.getCount(new Tag("neighbours")));
     }
 }
