@@ -232,7 +232,6 @@ public class AddCommandTest {
         public void addPerson(Person person) {
             requireNonNull(person);
             personsAdded.add(person);
-            addTags(person); // update the tag registry as AddCommand expects
         }
 
         @Override
