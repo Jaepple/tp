@@ -87,27 +87,36 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
-     * Adds a person and updates the TagsRegistry accordingly.
+     * Updates the {@code TagsRegistry} to include tags from the specified person.
+     *
+     * @param person The person whose tags are to be added to the registry.
      */
     void addTags(Person person);
 
     /**
-     * Deletes a person and updates the TagsRegistry accordingly.
+     * Updates the {@code TagsRegistry} by removing tags associated with the specified person.
+     *
+     * @param person The person whose tags are to be removed from the registry.
      */
     void deleteTags(Person person);
 
     /**
-     * Updates a person and the TagsRegistry accordingly.
+     * Updates the {@code TagsRegistry} to reflect changes between the old and edited person.
+     *
+     * @param oldPerson The original person before editing.
+     * @param editedPerson The edited person containing updated tags.
      */
     void updateEditedTags(Person oldPerson, Person editedPerson);
 
     /**
-     * Clears the TagsRegistry completely.
+     * Clears the {@code TagsRegistry} completely.
      */
     void clearTagsRegistry();
 
     /**
-     * Returns all tags formatted as a string.
+     * Returns a formatted string representation of all tags in the {@code TagsRegistry}.
+     *
+     * @return A string containing all tags in a display-friendly format.
      */
     String getFormattedTags();
 }
