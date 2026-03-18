@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -26,16 +27,12 @@ public class TagsCommandTest {
     public void execute_withTags_returnsFormattedTags() {
         ModelManager model = new ModelManager();
 
-        // Manually simulate tags existing
-        // (since command depends on model.getFormattedTags())
         model.addTags(seedu.address.testutil.TypicalPersons.ALICE);
 
         TagsCommand command = new TagsCommand();
         CommandResult result = command.execute(model);
 
         String feedback = result.getFeedbackToUser();
-
-        // Basic checks (avoid hardcoding exact string unless you want strict test)
-        assertEquals(true, feedback.startsWith("Tags:"));
+        assertTrue(feedback.startsWith("Tags:"));
     }
 }

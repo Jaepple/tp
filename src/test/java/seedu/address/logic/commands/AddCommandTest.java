@@ -220,7 +220,7 @@ public class AddCommandTest {
      */
     private class ModelStubAcceptingPersonAdded extends ModelStub {
         final ArrayList<Person> personsAdded = new ArrayList<>();
-        final TagsRegistry tagsRegistry = new TagsRegistry(); // added tag registry
+        final TagsRegistry tagsRegistry = new TagsRegistry();
 
         @Override
         public boolean hasPerson(Person person) {
@@ -236,7 +236,7 @@ public class AddCommandTest {
 
         @Override
         public void addTags(Person person) {
-            tagsRegistry.addPerson(person); // minimal implementation
+            tagsRegistry.addPerson(person);
         }
 
         @Override

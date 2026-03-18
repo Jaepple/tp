@@ -11,21 +11,12 @@ import static seedu.address.testutil.TypicalPersons.BENSON;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.TagsRegistry;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.PersonBuilder;
 
@@ -196,11 +187,9 @@ public class ModelManagerTest {
     public void setAddressBook_resetsTagsRegistry() {
         ModelManager model = new ModelManager();
 
-        // Original data
         Person personA = new PersonBuilder().withTags("friend").build();
         model.addTags(personA);
 
-        // New address book with different tag
         AddressBook newBook = new AddressBook();
         Person personB = new PersonBuilder().withTags("colleague").build();
         newBook.addPerson(personB);
@@ -209,7 +198,7 @@ public class ModelManagerTest {
 
         String tags = model.getFormattedTags();
 
-        assertFalse(tags.contains("friend"));     // old tag gone
-        assertTrue(tags.contains("colleague"));   // new tag present
+        assertFalse(tags.contains("friend"));
+        assertTrue(tags.contains("colleague"));
     }
 }

@@ -23,7 +23,6 @@ public class TagsRegistryTest {
     public void setUp() {
         tagsRegistry = new TagsRegistry();
 
-        // Create sample persons
         Set<Tag> tags1 = new HashSet<>();
         tags1.add(new Tag("neighbours"));
         Person p1 = new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"),
@@ -44,7 +43,6 @@ public class TagsRegistryTest {
         Person p4 = new Person(new Name("Roy Balakrishnan"), new Phone("92624417"),
                 new Email("royb@example.com"), new Address("Blk 45 Aljunied Street 85, #11-31"), tags4);
 
-        // Initialize registry
         tagsRegistry.initialize(Set.of(p1, p2, p3, p4));
     }
 
@@ -74,8 +72,8 @@ public class TagsRegistryTest {
 
         tagsRegistry.addPerson(newPerson);
 
-        assertEquals(2, tagsRegistry.getCount(new Tag("family"))); // existing tag incremented
-        assertEquals(1, tagsRegistry.getCount(new Tag("friend"))); // new tag added
+        assertEquals(2, tagsRegistry.getCount(new Tag("family")));
+        assertEquals(1, tagsRegistry.getCount(new Tag("friend")));
     }
 
     @Test
