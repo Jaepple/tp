@@ -51,7 +51,7 @@ public class TagsRegistry {
      * Returns all unique tags currently in use.
      */
     public Set<Tag> getAllTags() {
-        return tagCounts.keySet();
+        return Set.copyOf(tagCounts.keySet());
     }
 
     /**
