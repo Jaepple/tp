@@ -40,14 +40,6 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_add_withColon() throws Exception {
-        Person person = new PersonBuilder().build();
-        String addCommand = ":add" + " " + PersonUtil.getPersonDetails(person);
-        AddCommand command = (AddCommand) parser.parseCommand(addCommand);
-        assertEquals(new AddCommand(person), command);
-    }
-
-    @Test
     public void parseCommand_clear() throws Exception {
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3") instanceof ClearCommand);
@@ -93,7 +85,6 @@ public class AddressBookParserTest {
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
-        assertTrue(parser.parseCommand(":list") instanceof ListCommand);
     }
 
     @Test
@@ -104,6 +95,6 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_unknownCommand_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
+        assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand(":unknownCommand"));
     }
 }
