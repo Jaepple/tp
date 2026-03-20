@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +26,7 @@ public class CommandHistory {
      * the oldest command is removed. Resets the navigation index to the end.
      */
     public void add(String command) {
+        requireNonNull(command);
         history.add(command);
         if (history.size() > MAX_HISTORY_SIZE) {
             history.remove(0);

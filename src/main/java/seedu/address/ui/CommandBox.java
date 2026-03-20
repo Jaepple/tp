@@ -44,16 +44,16 @@ public class CommandBox extends UiPart<Region> {
             if (previous != null) {
                 commandTextField.setText(previous);
                 commandTextField.positionCaret(previous.length());
+                event.consume();
             }
-            event.consume();
             break;
         case DOWN:
             String next = commandHistory.getNext();
             if (next != null) {
                 commandTextField.setText(next);
                 commandTextField.positionCaret(next.length());
+                event.consume();
             }
-            event.consume();
             break;
         default:
             break;
@@ -66,7 +66,7 @@ public class CommandBox extends UiPart<Region> {
     @FXML
     private void handleCommandEntered() {
         String commandText = commandTextField.getText();
-        if (commandText.equals("")) {
+        if (commandText.isBlank()) {
             return;
         }
 
