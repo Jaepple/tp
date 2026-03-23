@@ -119,7 +119,7 @@ public class EditCommand extends Command {
             updatedTags.addAll(editPersonDescriptor.getTagsToAdd().get());
         }
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, personToEdit.getNoteList());
     }
 
     @Override
