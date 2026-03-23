@@ -13,6 +13,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.model.person.AddressContainsKeywordPredicate;
 import seedu.address.model.person.EmailContainsKeywordPredicate;
 import seedu.address.model.person.ListCommandPredicate;
+import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.PhoneContainsKeywordPredicate;
 import seedu.address.model.person.TagContainsKeywordPredicate;
 
@@ -38,7 +39,7 @@ public class ListCommandParserTest {
         TagContainsKeywordPredicate tagPredicate =
                 new TagContainsKeywordPredicate(Collections.singletonList("friends"));
         ListCommand expectedCommand = new ListCommand(new ListCommandPredicate(
-                tagPredicate, null, null, null));
+                tagPredicate, null, null, null, null));
         assertParseSuccess(parser, " t/friends", expectedCommand);
     }
 
@@ -47,7 +48,7 @@ public class ListCommandParserTest {
         TagContainsKeywordPredicate tagPredicate =
                 new TagContainsKeywordPredicate(Arrays.asList("friends", "owesMoney"));
         ListCommand expectedCommand = new ListCommand(new ListCommandPredicate(
-                tagPredicate, null, null, null));
+                tagPredicate, null, null, null, null));
         assertParseSuccess(parser, " t/friends t/owesMoney", expectedCommand);
     }
 
@@ -56,7 +57,7 @@ public class ListCommandParserTest {
         EmailContainsKeywordPredicate emailPredicate =
                 new EmailContainsKeywordPredicate(Collections.singletonList("gmail"));
         ListCommand expectedCommand = new ListCommand(new ListCommandPredicate(
-                null, emailPredicate, null, null));
+                null, emailPredicate, null, null, null));
         assertParseSuccess(parser, " e/gmail", expectedCommand);
     }
 
@@ -65,7 +66,7 @@ public class ListCommandParserTest {
         PhoneContainsKeywordPredicate phonePredicate =
                 new PhoneContainsKeywordPredicate(Collections.singletonList("9123"));
         ListCommand expectedCommand = new ListCommand(new ListCommandPredicate(
-                null, null, phonePredicate, null));
+                null, null, phonePredicate, null, null));
         assertParseSuccess(parser, " p/9123", expectedCommand);
     }
 
@@ -74,8 +75,17 @@ public class ListCommandParserTest {
         AddressContainsKeywordPredicate addressPredicate =
                 new AddressContainsKeywordPredicate(Collections.singletonList("clementi"));
         ListCommand expectedCommand = new ListCommand(new ListCommandPredicate(
-                null, null, null, addressPredicate));
+                null, null, null, addressPredicate, null));
         assertParseSuccess(parser, " a/clementi", expectedCommand);
+    }
+
+    @Test
+    public void parse_validSingleName_returnsListCommand() {
+        NameContainsKeywordsPredicate namePredicate =
+                new NameContainsKeywordsPredicate(Collections.singletonList("Alice"));
+        ListCommand expectedCommand = new ListCommand(new ListCommandPredicate(
+                null, null, null, null, namePredicate));
+        assertParseSuccess(parser, " n/Alice", expectedCommand);
     }
 
     @Test
@@ -85,7 +95,7 @@ public class ListCommandParserTest {
         EmailContainsKeywordPredicate emailPredicate =
                 new EmailContainsKeywordPredicate(Collections.singletonList("gmail"));
         ListCommand expectedCommand = new ListCommand(new ListCommandPredicate(
-                tagPredicate, emailPredicate, null, null));
+                tagPredicate, emailPredicate, null, null, null));
         assertParseSuccess(parser, " t/friends e/gmail", expectedCommand);
     }
 
@@ -99,8 +109,10 @@ public class ListCommandParserTest {
                 new PhoneContainsKeywordPredicate(Collections.singletonList("9123"));
         AddressContainsKeywordPredicate addressPredicate =
                 new AddressContainsKeywordPredicate(Collections.singletonList("clementi"));
+        NameContainsKeywordsPredicate namePredicate =
+                new NameContainsKeywordsPredicate(Collections.singletonList("Alice"));
         ListCommand expectedCommand = new ListCommand(new ListCommandPredicate(
-                tagPredicate, emailPredicate, phonePredicate, addressPredicate));
-        assertParseSuccess(parser, " t/friends e/gmail p/9123 a/clementi", expectedCommand);
+                tagPredicate, emailPredicate, phonePredicate, addressPredicate, namePredicate));
+        assertParseSuccess(parser, " t/friends e/gmail p/9123 a/clementi n/Alice", expectedCommand);
     }
 }

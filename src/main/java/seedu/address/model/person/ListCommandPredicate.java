@@ -6,13 +6,14 @@ import java.util.function.Predicate;
 import seedu.address.commons.util.ToStringBuilder;
 
 /**
- * Tests that a {@code Person} matches any of the given keywords for tags, emails, phone numbers, and addresses.
+ * Tests that a {@code Person} matches any of the given keywords for tags, emails, phone numbers, addresses, and names.
  */
 public class ListCommandPredicate implements Predicate<Person> {
     private final TagContainsKeywordPredicate tagPredicate;
     private final EmailContainsKeywordPredicate emailPredicate;
     private final PhoneContainsKeywordPredicate phonePredicate;
     private final AddressContainsKeywordPredicate addressPredicate;
+    private final NameContainsKeywordsPredicate namePredicate;
 
     /**
      * Creates a ListCommandPredicate checking for all the given predicates.
@@ -20,11 +21,13 @@ public class ListCommandPredicate implements Predicate<Person> {
     public ListCommandPredicate(TagContainsKeywordPredicate tagPredicate,
                                 EmailContainsKeywordPredicate emailPredicate,
                                 PhoneContainsKeywordPredicate phonePredicate,
-                                AddressContainsKeywordPredicate addressPredicate) {
+                                AddressContainsKeywordPredicate addressPredicate,
+                                NameContainsKeywordsPredicate namePredicate) {
         this.tagPredicate = tagPredicate;
         this.emailPredicate = emailPredicate;
         this.phonePredicate = phonePredicate;
         this.addressPredicate = addressPredicate;
+        this.namePredicate = namePredicate;
     }
 
     @Override
@@ -33,7 +36,8 @@ public class ListCommandPredicate implements Predicate<Person> {
         boolean emailMatch = emailPredicate == null || emailPredicate.test(person);
         boolean phoneMatch = phonePredicate == null || phonePredicate.test(person);
         boolean addressMatch = addressPredicate == null || addressPredicate.test(person);
-        return tagMatch && emailMatch && phoneMatch && addressMatch;
+        boolean nameMatch = namePredicate == null || namePredicate.test(person);
+        return tagMatch && emailMatch && phoneMatch && addressMatch && nameMatch;
     }
 
     @Override
@@ -50,7 +54,8 @@ public class ListCommandPredicate implements Predicate<Person> {
         return Objects.equals(tagPredicate, otherPredicate.tagPredicate)
                 && Objects.equals(emailPredicate, otherPredicate.emailPredicate)
                 && Objects.equals(phonePredicate, otherPredicate.phonePredicate)
-                && Objects.equals(addressPredicate, otherPredicate.addressPredicate);
+                && Objects.equals(addressPredicate, otherPredicate.addressPredicate)
+                && Objects.equals(namePredicate, otherPredicate.namePredicate);
     }
 
     @Override
@@ -60,6 +65,7 @@ public class ListCommandPredicate implements Predicate<Person> {
                 .add("emailPredicate", emailPredicate)
                 .add("phonePredicate", phonePredicate)
                 .add("addressPredicate", addressPredicate)
+                .add("namePredicate", namePredicate)
                 .toString();
     }
 }
