@@ -63,6 +63,10 @@ public class Person {
         return Collections.unmodifiableSet(tags);
     }
 
+    public NoteList getNoteList() {
+        return noteList;
+    }
+
     /**
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.
@@ -113,10 +117,7 @@ public class Person {
                 .add("email", email)
                 .add("address", address)
                 .add("tags", tags)
+                .add("notes", noteList)
                 .toString();
-    }
-
-    public NoteList getNoteList() {
-        return noteList;
     }
 }
