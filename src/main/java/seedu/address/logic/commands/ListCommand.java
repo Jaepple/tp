@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -12,7 +13,7 @@ import seedu.address.model.person.Person;
 
 /**
  * Lists all persons in the address book to the user.
- * Optionally filters by tag.
+ * Optionally filters by tag and/or email.
  */
 public class ListCommand extends Command {
 
@@ -21,9 +22,10 @@ public class ListCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Listed all persons";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all persons. "
-            + "Optionally filters by one or more tags (OR relationship).\n"
-            + "Parameters: [" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " " + PREFIX_TAG + "friend " + PREFIX_TAG + "colleague";
+            + "Optionally filters by one or more tags (OR relationship) and/or one or more email keywords (OR relationship).\n"
+            + "Multiple types of parameters (tags, emails) are combined with AND relationship.\n"
+            + "Parameters: [" + PREFIX_TAG + "TAG]... [" + PREFIX_EMAIL + "EMAIL]...\n"
+            + "Example: " + COMMAND_WORD + " " + PREFIX_TAG + "friend " + PREFIX_EMAIL + "gmail";
 
     private final Predicate<Person> predicate;
 

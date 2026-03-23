@@ -21,6 +21,8 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.EmailContainsKeywordPredicate;
+import seedu.address.model.person.ListCommandPredicate;
 import seedu.address.model.person.TagContainsKeywordPredicate;
 
 /**
@@ -93,6 +95,36 @@ public class ListCommandTest {
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Collections.singletonList(BENSON), model.getFilteredPersonList());
+    }
+
+    @Test
+    public void execute_emailFilter_showsMatchingPersons() {
+        // "johnd" matches BENSON's email
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
+        EmailContainsKeywordPredicate emailPredicate =
+                new EmailContainsKeywordPredicate(Collections.singletonList("johnd"));
+        ListCommandPredicate predicate = new ListCommandPredicate(null, emailPredicate);
+        ListCommand command = new ListCommand(predicate);
+        expectedModel.updateFilteredPersonList(predicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(BENSON), model.getFilteredPersonList());
+    }
+
+    @Test
+    public void execute_tagAndEmailFilter_showsIntersection() {
+        // "friends" matches ALICE, BENSON, DANIEL
+        // "example.com" matches everyone
+        // Intersection should be ALICE, BENSON, DANIEL
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
+        TagContainsKeywordPredicate tagPredicate =
+                new TagContainsKeywordPredicate(Collections.singletonList("friends"));
+        EmailContainsKeywordPredicate emailPredicate =
+                new EmailContainsKeywordPredicate(Collections.singletonList("example.com"));
+        ListCommandPredicate predicate = new ListCommandPredicate(tagPredicate, emailPredicate);
+        ListCommand command = new ListCommand(predicate);
+        expectedModel.updateFilteredPersonList(predicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(ALICE, BENSON, DANIEL), model.getFilteredPersonList());
     }
 
     @Test
