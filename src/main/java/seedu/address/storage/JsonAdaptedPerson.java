@@ -64,7 +64,7 @@ class JsonAdaptedPerson {
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
-        notes.addAll(source.getNoteList().getAll().stream()
+        notes.addAll(source.getNoteList().stream()
                 .map(JsonAdaptedNote::new)
                 .collect(Collectors.toList()));
     }

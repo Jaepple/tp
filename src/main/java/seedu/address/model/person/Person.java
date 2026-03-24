@@ -4,6 +4,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -25,6 +26,14 @@ public class Person {
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
     private final NoteList noteList;
+
+    /**
+     * Every field must be present and not null.
+     * Initializes with an empty NoteList by default.
+     */
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+        this(name, phone, email, address, tags, new NoteList());
+    }
 
     /**
      * Every field must be present and not null.
@@ -63,8 +72,8 @@ public class Person {
         return Collections.unmodifiableSet(tags);
     }
 
-    public NoteList getNoteList() {
-        return noteList;
+    public List<Note> getNoteList() {
+        return noteList.getAll();
     }
 
     /**
