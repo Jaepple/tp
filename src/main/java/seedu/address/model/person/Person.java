@@ -129,4 +129,8 @@ public class Person {
                 .add("notes", noteList)
                 .toString();
     }
+
+    public NoteList appendNote(String note) {
+        return this.noteList.append(note);
+    }
 }
