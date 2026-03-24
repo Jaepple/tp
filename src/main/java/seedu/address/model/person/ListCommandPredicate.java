@@ -6,14 +6,16 @@ import java.util.function.Predicate;
 import seedu.address.commons.util.ToStringBuilder;
 
 /**
- * Tests that a {@code Person} matches any of the given keywords for tags, emails, phone numbers, addresses, and names.
+ * Tests that a {@code Person} matches all of the non-null field predicates (tags, names, emails, phone numbers, and
+ * addresses). Each individual field predicate may match any of its own keywords, but this combined predicate requires
+ * every non-null field predicate to pass.
  */
 public class ListCommandPredicate implements Predicate<Person> {
     private final TagContainsKeywordPredicate tagPredicate;
     private final EmailContainsKeywordPredicate emailPredicate;
     private final PhoneContainsKeywordPredicate phonePredicate;
     private final AddressContainsKeywordPredicate addressPredicate;
-    private final NameContainsKeywordsPredicate namePredicate;
+    private final NameContainsSubstringPredicate namePredicate;
 
     /**
      * Creates a ListCommandPredicate checking for all the given predicates.
@@ -22,7 +24,7 @@ public class ListCommandPredicate implements Predicate<Person> {
                                 EmailContainsKeywordPredicate emailPredicate,
                                 PhoneContainsKeywordPredicate phonePredicate,
                                 AddressContainsKeywordPredicate addressPredicate,
-                                NameContainsKeywordsPredicate namePredicate) {
+                                NameContainsSubstringPredicate namePredicate) {
         this.tagPredicate = tagPredicate;
         this.emailPredicate = emailPredicate;
         this.phonePredicate = phonePredicate;

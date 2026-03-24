@@ -13,7 +13,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.model.person.AddressContainsKeywordPredicate;
 import seedu.address.model.person.EmailContainsKeywordPredicate;
 import seedu.address.model.person.ListCommandPredicate;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.NameContainsSubstringPredicate;
 import seedu.address.model.person.PhoneContainsKeywordPredicate;
 import seedu.address.model.person.TagContainsKeywordPredicate;
 
@@ -81,8 +81,8 @@ public class ListCommandParserTest {
 
     @Test
     public void parse_validSingleName_returnsListCommand() {
-        NameContainsKeywordsPredicate namePredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("Alice"));
+        NameContainsSubstringPredicate namePredicate =
+                new NameContainsSubstringPredicate(Collections.singletonList("Alice"));
         ListCommand expectedCommand = new ListCommand(new ListCommandPredicate(
                 null, null, null, null, namePredicate));
         assertParseSuccess(parser, " n/Alice", expectedCommand);
@@ -109,10 +109,56 @@ public class ListCommandParserTest {
                 new PhoneContainsKeywordPredicate(Collections.singletonList("9123"));
         AddressContainsKeywordPredicate addressPredicate =
                 new AddressContainsKeywordPredicate(Collections.singletonList("clementi"));
-        NameContainsKeywordsPredicate namePredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("Alice"));
+        NameContainsSubstringPredicate namePredicate =
+                new NameContainsSubstringPredicate(Collections.singletonList("Alice"));
         ListCommand expectedCommand = new ListCommand(new ListCommandPredicate(
                 tagPredicate, emailPredicate, phonePredicate, addressPredicate, namePredicate));
         assertParseSuccess(parser, " t/friends e/gmail p/9123 a/clementi n/Alice", expectedCommand);
+    }
+
+    @Test
+    public void parse_emptyPrefixArgs_throwsParseException() {
+        // empty n/
+        assertParseFailure(parser, " n/",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+
+        // empty e/
+        assertParseFailure(parser, " e/",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+
+        // empty p/
+        assertParseFailure(parser, " p/",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+
+        // empty a/
+        assertParseFailure(parser, " a/",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+
+        // empty t/
+        assertParseFailure(parser, " t/",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+
+        // all empty
+        assertParseFailure(parser, " n/ e/ p/ a/ t/",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_mixedEmptyAndValidArgs_success() {
+        // mixed n/
+        NameContainsSubstringPredicate namePredicate =
+                new NameContainsSubstringPredicate(Collections.singletonList("Alice"));
+        ListCommand expectedCommand = new ListCommand(new ListCommandPredicate(
+                null, null, null, null, namePredicate));
+        assertParseSuccess(parser, " n/Alice n/", expectedCommand);
+    }
+
+    @Test
+    public void parse_validSubstringName_returnsListCommand() {
+        NameContainsSubstringPredicate namePredicate =
+                new NameContainsSubstringPredicate(Collections.singletonList("Ali"));
+        ListCommand expectedCommand = new ListCommand(new ListCommandPredicate(
+                null, null, null, null, namePredicate));
+        assertParseSuccess(parser, " n/Ali", expectedCommand);
     }
 }

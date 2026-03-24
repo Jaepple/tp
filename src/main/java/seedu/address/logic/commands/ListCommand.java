@@ -16,7 +16,7 @@ import seedu.address.model.person.Person;
 
 /**
  * Lists all persons in the address book to the user.
- * Optionally filters by tag, email, phone, and/or address.
+ * Optionally filters by tag, name, email, phone, and/or address.
  */
 public class ListCommand extends Command {
 

@@ -14,7 +14,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.AddressContainsKeywordPredicate;
 import seedu.address.model.person.EmailContainsKeywordPredicate;
 import seedu.address.model.person.ListCommandPredicate;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.NameContainsSubstringPredicate;
 import seedu.address.model.person.PhoneContainsKeywordPredicate;
 import seedu.address.model.person.TagContainsKeywordPredicate;
 
@@ -43,6 +43,13 @@ public class ListCommandParser implements Parser<ListCommand> {
         List<String> addressValues = argMultimap.getAllValues(PREFIX_ADDRESS);
         List<String> nameValues = argMultimap.getAllValues(PREFIX_NAME);
 
+        // Filter out empty/blank values to prevent runtime errors and incorrect matches
+        tagValues.removeIf(String::isBlank);
+        emailValues.removeIf(String::isBlank);
+        phoneValues.removeIf(String::isBlank);
+        addressValues.removeIf(String::isBlank);
+        nameValues.removeIf(String::isBlank);
+
         if ((tagValues.isEmpty() && emailValues.isEmpty() && phoneValues.isEmpty()
                 && addressValues.isEmpty() && nameValues.isEmpty())
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -65,9 +72,9 @@ public class ListCommandParser implements Parser<ListCommand> {
                 ? null
                 : new AddressContainsKeywordPredicate(addressValues);
 
-        NameContainsKeywordsPredicate namePredicate = nameValues.isEmpty()
+        NameContainsSubstringPredicate namePredicate = nameValues.isEmpty()
                 ? null
-                : new NameContainsKeywordsPredicate(nameValues);
+                : new NameContainsSubstringPredicate(nameValues);
 
         return new ListCommand(new ListCommandPredicate(tagPredicate, emailPredicate,
                 phonePredicate, addressPredicate, namePredicate));

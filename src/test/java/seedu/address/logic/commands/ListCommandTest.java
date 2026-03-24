@@ -24,9 +24,10 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.person.AddressContainsKeywordPredicate;
 import seedu.address.model.person.EmailContainsKeywordPredicate;
 import seedu.address.model.person.ListCommandPredicate;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.NameContainsSubstringPredicate;
 import seedu.address.model.person.PhoneContainsKeywordPredicate;
 import seedu.address.model.person.TagContainsKeywordPredicate;
+
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
@@ -164,8 +165,8 @@ public class ListCommandTest {
     public void execute_nameFilter_showsMatchingPersons() {
         // "Alice" matches ALICE's name
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
-        NameContainsKeywordsPredicate namePredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("Alice"));
+        NameContainsSubstringPredicate namePredicate =
+                new NameContainsSubstringPredicate(Collections.singletonList("Alice"));
         ListCommandPredicate predicate = new ListCommandPredicate(
                 null, null, null, null, namePredicate);
         ListCommand command = new ListCommand(predicate);
@@ -191,8 +192,8 @@ public class ListCommandTest {
                 new PhoneContainsKeywordPredicate(Collections.singletonList("94351253"));
         AddressContainsKeywordPredicate addressPredicate =
                 new AddressContainsKeywordPredicate(Collections.singletonList("jurong"));
-        NameContainsKeywordsPredicate namePredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("Alice"));
+        NameContainsSubstringPredicate namePredicate =
+                new NameContainsSubstringPredicate(Collections.singletonList("Alice"));
         ListCommandPredicate predicate = new ListCommandPredicate(
                 tagPredicate, emailPredicate, phonePredicate, addressPredicate, namePredicate);
         ListCommand command = new ListCommand(predicate);
