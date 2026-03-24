@@ -88,6 +88,11 @@ public class PersonTest {
         // different tags -> returns false
         editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
         assertFalse(ALICE.equals(editedAlice));
+
+        // different notes -> returns false
+        editedAlice = new Person(ALICE.getName(), ALICE.getPhone(), ALICE.getEmail(), ALICE.getAddress(),
+                ALICE.getTags(), ALICE.appendNote("met at conference"));
+        assertFalse(ALICE.equals(editedAlice));
     }
 
     @Test
