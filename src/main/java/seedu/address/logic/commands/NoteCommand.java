@@ -21,7 +21,7 @@ public class NoteCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) NOTE\n"
             + "Example: " + COMMAND_WORD + " 1 met him at networking event";
 
-    public static final String MESSAGE_SUCCESS = "Added note to: %1$s";
+    public static final String MESSAGE_SUCCESS = "Added note to %1$s: %2$s";
 
     private final Index index;
     private final String note;
@@ -56,6 +56,6 @@ public class NoteCommand extends Command {
 
         model.setPerson(personToEdit, editedPerson);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, editedPerson));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, personToEdit.getName(), note));
     }
 }
