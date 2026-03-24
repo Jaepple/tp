@@ -62,9 +62,9 @@ public class ListCommandParser implements Parser<ListCommand> {
         sortValues.removeIf(String::isBlank);
 
         boolean noFilters = tagValues.isEmpty() && emailValues.isEmpty() && phoneValues.isEmpty()
-                && addressValues.isEmpty() && nameValues.isEmpty();
+                && addressValues.isEmpty() && nameValues.isEmpty() && sortValues.isEmpty();
 
-        if ((noFilters && sortValues.isEmpty()) || !argMultimap.getPreamble().isEmpty()) {
+        if (noFilters || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
         }
 
@@ -111,7 +111,7 @@ public class ListCommandParser implements Parser<ListCommand> {
                 sortCriteriaList.add(0, new SortCriteria(SortField.FAVORITE, SortOrder.DESCENDING));
             }
         }
-        
+
         Comparator<Person> comparator = sortCriteriaList.isEmpty()
                 ? null
                 : new PersonComparator(sortCriteriaList);
@@ -137,7 +137,6 @@ public class ListCommandParser implements Parser<ListCommand> {
 
         SortOrder order = (orderChar == '+') ? SortOrder.ASCENDING : SortOrder.DESCENDING;
         SortField field;
-
         switch (fieldChar) {
         case "n":
             field = SortField.NAME;

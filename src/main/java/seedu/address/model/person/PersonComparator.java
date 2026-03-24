@@ -10,18 +10,30 @@ import seedu.address.commons.util.ToStringBuilder;
  * A comparator for Person objects that supports multiple sort criteria.
  */
 public class PersonComparator implements Comparator<Person> {
+    /**
+     * Represents the field to sort by.
+     */
     public enum SortField {
         NAME, PHONE, FAVORITE
     }
 
+    /**
+     * Represents the order to sort by.
+     */
     public enum SortOrder {
         ASCENDING, DESCENDING
     }
 
+    /**
+     * Represents a single sort criteria with a field and an order.
+     */
     public static class SortCriteria {
         public final SortField field;
         public final SortOrder order;
 
+        /**
+         * Creates a SortCriteria with the given field and order.
+         */
         public SortCriteria(SortField field, SortOrder order) {
             this.field = field;
             this.order = order;

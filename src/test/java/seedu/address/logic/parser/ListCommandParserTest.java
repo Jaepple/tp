@@ -229,7 +229,8 @@ public class ListCommandParserTest {
         assertParseFailure(parser, " s/n",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE)); // missing order
 
+        // invalid format for favorites
         assertParseFailure(parser, " s/+*",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE)); // invalid format for favorites
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
     }
 }
