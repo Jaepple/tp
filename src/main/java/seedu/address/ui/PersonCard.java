@@ -34,6 +34,8 @@ public class PersonCard extends UiPart<Region> {
     private Label id;
     @FXML
     private FlowPane tags;
+    @FXML
+    private Label favouriteIndicator;
 
     /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
@@ -43,6 +45,8 @@ public class PersonCard extends UiPart<Region> {
         this.person = person;
         id.setText(Integer.toString(displayedIndex));
         name.setText(person.getName().fullName);
+        favouriteIndicator.setText(person.isFavourite() ? "\u2605" : "");
+
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

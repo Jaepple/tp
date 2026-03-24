@@ -21,7 +21,10 @@
       <padding>
         <Insets top="6" right="8" bottom="6" left="10" />
       </padding>
-      <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
+      <HBox spacing="5" alignment="CENTER_LEFT">
+        <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
+        <Label fx:id="favouriteIndicator" text="" styleClass="favourite-indicator" />
+      </HBox>
       <FlowPane fx:id="tags" />
     </VBox>
   </GridPane>
