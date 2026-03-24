@@ -9,8 +9,6 @@
             styleClass="details-scroll-pane" xmlns:fx="http://javafx.com/fxml">
     <content>
         <VBox spacing="8" styleClass="details-panel">
-            <Label text="Person Details" styleClass="details-heading" />
-
             <HBox spacing="5">
                 <Label text="Name:" styleClass="field-name" />
                 <Label fx:id="name" styleClass="field-value" />

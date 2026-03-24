@@ -41,7 +41,9 @@
                 minWidth="250"
                 prefWidth="300"
                 VBox.vgrow="ALWAYS">
-            <Label text="Contacts List" styleClass="pane-title" />
+            <HBox alignment="CENTER_LEFT" styleClass="pane-title-bar">
+              <Label text="Contacts List" styleClass="pane-title" />
+            </HBox>
             <padding>
               <Insets top="10" right="10" bottom="10" left="10"/>
             </padding>
@@ -54,7 +56,9 @@
                 styleClass="pane-with-border"
                 VBox.vgrow="ALWAYS"
                 HBox.hgrow="ALWAYS">
-            <Label text="Details" styleClass="pane-title" />
+            <HBox alignment="CENTER_LEFT" styleClass="pane-title-bar">
+              <Label text="Details" styleClass="pane-title" />
+            </HBox>
 
             <padding>
               <Insets top="10" right="10" bottom="10" left="10"/>
