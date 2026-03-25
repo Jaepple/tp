@@ -27,6 +27,9 @@ public class NoteList {
      */
     public NoteList(List<Note> notes) {
         requireNonNull(notes);
+        for (Note note : notes) {
+            requireNonNull(note);
+        }
         this.notes = new ArrayList<>(notes); // defensive copy
     }
 
