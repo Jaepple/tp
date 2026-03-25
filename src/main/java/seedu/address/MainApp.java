@@ -62,6 +62,8 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs);
 
+        assert false;
+
         logic = new LogicManager(model, storage);
 
         ui = new UiManager(logic);

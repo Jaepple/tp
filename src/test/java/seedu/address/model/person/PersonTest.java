@@ -25,6 +25,23 @@ public class PersonTest {
     }
 
     @Test
+    public void getNoteList_modifyList_throwsUnsupportedOperationException() {
+        Person person = new PersonBuilder().build();
+        assertThrows(UnsupportedOperationException.class, () -> person.getNoteList().add(new Note("New note")));
+    }
+
+    @Test
+    public void appendNote_returnsUpdatedNoteListWithoutMutatingOriginalPersonNotes() {
+        Person person = new PersonBuilder().build();
+
+        NoteList updatedNotes = person.appendNote("Met at conference");
+
+        assertTrue(person.getNoteList().isEmpty());
+        assertEquals(1, updatedNotes.getAll().size());
+        assertEquals(new Note("Met at conference"), updatedNotes.getAll().get(0));
+    }
+
+    @Test
     public void isSamePerson() {
         // same object -> returns true
         assertTrue(ALICE.isSamePerson(ALICE));
