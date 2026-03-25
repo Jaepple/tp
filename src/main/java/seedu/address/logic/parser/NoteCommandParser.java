@@ -8,7 +8,7 @@ import seedu.address.logic.commands.NoteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new NotesCommand object.
+ * Parses input arguments and creates a new NoteCommand object.
  */
 public class NoteCommandParser implements Parser<NoteCommand> {
 
