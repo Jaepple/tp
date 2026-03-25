@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Objects;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
@@ -70,5 +71,24 @@ public class NoteCommand extends Command {
         model.setPerson(personToEdit, editedPerson);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, personToEdit.getName(), note));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof NoteCommand)) {
+            return false;
+        }
+
+        NoteCommand otherCommand = (NoteCommand) other;
+        return index.equals(otherCommand.index) && note.equals(otherCommand.note);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(index, note);
     }
 }
