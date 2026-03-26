@@ -11,20 +11,21 @@ For detailed documentation, see the [**0rb1t Product Website**](https://ay2526s
 
 This project is based on the AddressBook-Level3 project created by the [SE-EDU initiative](https://se-education.org/).
 
-![Ui.png](./images/Ui.png)
-
-
 # Table of Contents
 
 - [Command List](#command-list)
+    - [Accessing Command History](#accessing-command-history)
     - [Adding Contacts](#adding-contacts)
-    - [Clearing the Address Book](#clearing-the-address-book)
+    - [Adding Notes to Contacts](#adding-notes-to-contacts)
+    - [Clearing 0rb1t](#clearing-0rb1t)
     - [Deleting Contacts](#deleting-contacts)
     - [Editing Contacts](#editing-contacts)
     - [Exiting 0rb1t](#exiting-0rb1t)
+    - [Favouriting Contacts](#favouriting-contacts)
     - [Finding Contacts](#finding-contacts)
     - [Accessing Help in 0rb1t](#accessing-help-in-0rb1t)
     - [Listing Contacts](#listing-contacts)
+    - [Sorting Contacts](#sorting-contacts)
     - [Listing Tags](#listing-tags)
     - [Viewing Contacts](#viewing-contacts)
 - [Storage](#storage)
@@ -54,33 +55,57 @@ java -jar 0rb1t.jar
 
 ## Command List
 
+### Accessing Command History
+
+To navigate previously used commands, use the `UP` and `DOWN` arrow keys in the command box. `UP` to recall older commands, `DOWN` to recall newer commands.
+
+Note: Navigating past the newest command clears the command box. Up to 64 commands are stored.
+
+Format: `UP` or `DOWN`
+
+Expected: The command box will display the selected command from the history, depending on whether you press the `UP` or `DOWN` key.
+
 ### Adding Contacts
 
 To add a contact, simply type `:add` followed by the details of the contact you wish to add. The parameters required are:
 
-- The person’s name, typed after `n/`.
-- The person’s phone number, typed after `p/`.
-- The person’s email, typed after `e/`.
-- The person’s house address, typed after `a/`.
-- Any tags you wish to identify the person with, typed after `t/`, and each additional tag after the first one separated by `t/`.
+- The contact’s name, typed after `n/`.
+- The contact’s phone number, typed after `p/`.
+- The contact’s email, typed after `e/`.
+- The contact’s house address, typed after `a/`.
+- Any tags you wish to identify the contact with, typed after `t/`, and each additional tag after the first one separated by `t/`.
 
-Note: All parameters are required except for tags. A person can have any number of tags (including 0).
+Note: All parameters are required except for tags. A contact can have any number of tags (including 0).
 
 Format: `:add n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]...`
 
 Examples:
 
-`:add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
+`:add n/John Doe p/98765432 e/johnd@example.com a/John Street, Block 123, #01-01`
 
 `:add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
-Expected: The new contact will be added to the address book, and it can be viewed at the bottom of the sidebar.
+Expected: The new contact will be added to 0rb1t, and it can be viewed at the sidebar.
 
-![AddCommand.png](./images/AddCommand.png)
+### Adding Notes to Contacts
 
-### Clearing the Address Book
+To add a note to a contact, type `:note` followed by the index of the contact and the note you wish to add.
 
-To clear the entire address book, type `:clear`. 0rb1t will ask you whether or not you wish to clear the entire address book (in case you mistyped). Typing `yes` will clear the address book, while typing anything else will cancel the command.
+Note: Notes are appended (not overwritten) to the existing ones.
+
+Format: `:note <INDEX> note`
+
+Examples: 
+
+`:note 1 This is an important contact.`
+
+`:note 5 Don't forget to follow up with him/her.`
+
+Expected: The note will be added/appended to the contact in 0rb1t.
+
+### Clearing 0rb1t
+
+To clear the entire 0rb1t, type `:clear`. 0rb1t will ask you whether you wish to clear the entire 0rb1t (in case you mistyped). Typing `yes` will clear 0rb1t, while typing anything else will cancel the command.
 
 Format: `:clear` + `yes`
 
@@ -88,16 +113,12 @@ Example:
 
 `:clear`
 
-![ClearCommand1.png](./images/ClearCommand1.png)
-
-Are you sure you want to clear the entire address book?
+Are you sure you want to clear the entire 0rb1t?
 Type 'yes' to confirm. Any other input will be taken as no.
 
 `yes`
 
-Expected: The entire address book will be cleared, and the sidebar will become empty.
-
-![ClearCommand2.png](./images/ClearCommand2.png)
+Expected: The entire 0rb1t will be cleared, and the sidebar will be empty.
 
 ### Deleting Contacts
 
@@ -109,28 +130,25 @@ Example:
 
 `:delete 1`
 
-![DeleteCommand1.png](./images/DeleteCommand1.png)
-
-Are you sure you want to delete this person?
+Are you sure you want to delete this contact?
 <Contact details>
 Type 'yes' to confirm. Any other input will be taken as no.
 
 `yes`
 
-Expected: The contact that corresponds to the index entered will be deleted from the address book. 0rb1t confirms that the chosen contact is deleted, and shows the details of the contact deleted.
-
-![DeleteCommand2.png](./images/DeleteCommand2.png)
+Expected: The contact corresponding to the entered index will be deleted from 0rb1t. 0rb1t confirms that the chosen contact is deleted, and shows the details of the contact deleted.
 
 ### Editing Contacts
 
-To edit the details of a contact, type `:edit` followed by the field you wish to edit and the new details. The fields that can be edited are:
+To edit the details of a contact, type `:edit` followed by the index of the contact you wish to edit, 
+then the field prefixes of the fields you wish to change, and then the new details. The fields that can be edited are:
 
-- The person’s name, typed after `n/`.
-- The person’s phone number, typed after `p/`.
-- The person’s email, typed after `e/`.
-- The person’s house address, typed after `a/`.
-- Any tags you wish to identify the person with, typed after `t/`, and each additional tag after the first one separated by `t/`.
-- Any tags you wish to remove from the person, typed after `dt/`, and each additional tag to be removed separated by `dt/`.
+- The contact’s name, typed after `n/`.
+- The contact’s phone number, typed after `p/`.
+- The contact’s email, typed after `e/`.
+- The contact’s house address, typed after `a/`.
+- Any tags you wish to identify the contact with, typed after `t/`, and each additional tag after the first one separated by `t/`.
+- Any tags you wish to remove from the contact, typed after `dt/`, and each additional tag to be removed separated by `dt/`.
 
 Note: If you wish to leave some fields unchanged, you do not have to include them in the `:edit` command.
 
@@ -144,9 +162,7 @@ Examples:
 
 `:edit 1 e/jane_doe@example.com dt/school`
 
-Expected: 0rb1t confirms the updating of the details of the chosen contact, and shows the new details of the contact.
-
-![EditCommand.png](./images/EditCommand.png)
+Expected: 0rb1t will display a confirmation message and show the updated details of the contact.
 
 ### Exiting 0rb1t
 
@@ -156,23 +172,43 @@ Format: `:exit`
 
 Expected: 0rb1t will close. No goodbye message is shown.
 
-### Finding Contacts
+### Favouriting Contacts
 
-To find a particular contact by their name, type `:find` followed by the name of the contact. To search for multiple people, type each of their names one after another, separated by a space.
+To make a contact your favourite, type `:favourite` followed by the index of the contact.
+To un-favourite, type `:unfavourite` followed by the index of the contact.
 
-Note: Currently, this command can accept multiple arguments (names) and 0rb1t will list all the contacts with **either** of the names.
+Note: Favourites are indicated by a star next to the contact name. Favourites are persisted and stored in the contact's data.
 
-Format: `:find <NAME>`
+Format: `:favourite <INDEX>` or `:unfavourite <INDEX>`
 
 Examples:
 
-`:find bernice`
+`:favourite 2`
 
-`:find david`
+`:unfavourite 7`
 
-Expected: 0rb1t will list all the corresponding contacts, whose names match the input, in the sidebar. It will also show how many contacts it listed.
+Expected: The contact at the given index will have a star icon next to their name, indicating that they are a favourite.
 
-![FindCommand.png](./images/FindCommand.png)
+### Finding Contacts
+
+To find a particular contact, type `:list` followed by the field you wish to use. The fields you can use are:
+
+- The contact’s name, typed after `n/`.
+- The contact’s phone number, typed after `p/`.
+- The contact’s email, typed after `e/`.
+- The contact’s house address, typed after `a/`.
+
+Note: Multiple filters can be combined with `and`, and multiple values for a field can be used with `or`.
+
+Format: `:list <FIELD_PREFIX + KEYWORD>`
+
+Examples:
+
+`:list n/John and p/12345678`
+
+`:list n/Bernice or n/Sally`
+
+Expected: 0rb1t will display a list of contacts in the sidebar whose details match the search criteria.
 
 ### Accessing Help in 0rb1t
 
@@ -182,13 +218,9 @@ Format: `:help`
 
 Expected: 0rb1t will open a separate help window, showing the link to the User Guide of 0rb1t.
 
-![HelpCommand.png](./images/HelpCommand.png)
-
 ### Listing Contacts
 
-To list all contacts stored in 0rb1t, type `:list` and all contacts will appear on the sidebar. You can also use this command to filter contacts by 1 or more tags.
-
-Note: If no tags are specified, all contacts are shown. If one or more tags are specified, only persons with at least one of the given tags are shown. Tag-matching is case-insensitive.
+To list all contacts stored in 0rb1t, type `:list` and all contacts will appear on the sidebar.
 
 Format: `:list <TAG>`
 
@@ -200,25 +232,39 @@ Examples:
 
 `:list t/friend t/colleague`
 
-Expected: 0rb1t will state that it listed all persons, and the entire contact list will be made available in the sidebar. 
+Expected: 0rb1t will state that it listed all contacts, and the entire list will be made available in the sidebar.
 
-![ListCommand1.png](./images/ListCommand1.png)
+If tags are added, all contacts with the relevant tags will be made available in the sidebar.
 
-If tags are added, all persons with the relevant tags will be made available in the sidebar.
+### Sorting Contacts
 
-![ListCommand2.png](./images/ListCommand2.png)
+To sort contact by specific fields, type `:list s/` followed by the field you wish to sort by. Use `+`or `-` to sort in either ascending or descending order respectively.
+Typing `s/*` ensures favourites are always at the top. The fields you can sort by are:
+
+- The contact’s name, typed after `n/`.
+- The contact’s phone number, typed after `p/`.
+- The contact’s email, typed after `e/`.
+- The contact’s house address, typed after `a/`.
+
+Format: `:list s/<FIELD_PREFIX + SIGN>`
+
+Examples:
+
+`:list s/+n`
+
+`:list s/* s/-a`
+
+Expected: The list of contacts will be sorted based on the paramter and in the order specified. If s/* was used, favourited contacts will be pinned at the top.
 
 ### Listing Tags
 
-To display all the tags that you have added in the address book, type `:tags` and all the tags you have added will be shown, with each tag separated by a comma.
+To display all the tags that you have added in 0rb1t, type `:tags` and all the tags you have added will be shown, with each tag separated by a comma.
 
 Note: Tags are displayed in alphabetical order, and each tag is shown only once even if multiple contacts have the same tag. Tags are case-sensitive: “friend” and “Friend” are treated as different tags.
 
 Format: `:tags`
 
-Expected: 0rb1t will display all the tags that have been added to the address book.
-
-![TagsCommand.png](./images/TagsCommand.png)
+Expected: 0rb1t will display all the tags that have been added to 0rb1t.
 
 ### Viewing Contacts
 
@@ -233,8 +279,6 @@ Examples:
 `:view 10`
 
 Expected: 0rb1t will state which contact is being shown by stating the name of the contact. The corresponding contact will be highlighted in the sidebar, and the contact details can be viewed in the main window.
-
-![ViewCommand.png](./images/ViewCommand.png)
 
 ## Storage
 
@@ -252,7 +296,7 @@ Furthermore, certain edits can cause 0rb1t to behave in unexpected ways (e.g., i
 
 ## Tips and Examples
 
-- Use `:find` to search for the right person before any other action to avoid changing/deleting the wrong contact.
+- Use `:find` to search for the right contact before any other action to avoid changing/deleting the wrong contact.
 
 - Example:
 `:find adam`
@@ -272,15 +316,19 @@ Furthermore, certain edits can cause 0rb1t to behave in unexpected ways (e.g., i
 
 ## Command Summary
 
-| Command       | Format                                             | Description                                                      | Example                                                                                              |
-|---------------|----------------------------------------------------|------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
-| Add           | `:add n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]...` | Adds a person to the address book.                               | `:add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney` |
-| Clear         | `:clear` + `yes`                                   | Clears the entire address book.                                  | `:clear`<br/>`...`<br/>`yes`                                                                         |
-| Delete        | `:delete <INDEX>` + `yes`                          | Deletes a person from the address book.                          | `:delete 2`<br/>`...`<br/>`yes`                                                                      |
-| Edit          | `:edit <INDEX> ...`                                | Edits a person’s details in the address book.                    | `:edit 3`                                                                                            |
-| Exit          | `:exit`                                            | Exits 0rb1t.                                                     | `:exit`                                                                                              |
-| Find          | `:find <NAME>`                                     | Finds a person in the address book based on their name.          | `:find John`                                                                                         |
-| Help          | `:help`                                            | Opens the help page.                                             | `:help`                                                                                              |
-| List Contacts | `:list` or `:list <TAG>`                           | Lists all contacts stored in the address book.                   | `:list`<br/>`:list t/friend`                                                                         |
-| List Tags     | `:tags`                                            | Lists all the tags used in the address book.                     | `:tags`                                                                                              |
-| View          | `:view <INDEX>`                                    | Views a person’s details in the address book based on the index. | `:view 4`                                                                                            |
+| Command        | Format                                             | Description                                            | Example                                                                                              |
+|----------------|----------------------------------------------------|--------------------------------------------------------|------------------------------------------------------------------------------------------------------|
+| Access History | `UP` or `DOWN`                                     | Navigates to previously used commands.                 | `UP` or `DOWN`                                                                                       |
+| Add Contact    | `:add n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]...` | Adds a contact to 0rb1t.                               | `:add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney` |
+| Add Note       | `:note <INDEX> note`                               | Adds a note to the contact.                            | `:note 2 This is an important contact.`                                                              |
+| Clear          | `:clear` + `yes`                                   | Clears the entire 0rb1t.                               | `:clear`<br/>`...`<br/>`yes`                                                                         |
+| Delete         | `:delete <INDEX>` + `yes`                          | Deletes a contact from 0rb1t.                          | `:delete 2`<br/>`...`<br/>`yes`                                                                      |
+| Edit           | `:edit <INDEX> ...`                                | Edits a contact’s details in 0rb1t.                    | `:edit 3`                                                                                            |
+| Exit           | `:exit`                                            | Exits 0rb1t.                                           | `:exit`                                                                                              |
+| Favourite      | `:favourite` or `:unfavourite`                     | Favourites/unfavourites a contact.                     | `:favourite 5`<br/>`unfavourite 8`                                                                   |
+| Find           | `:find <NAME>`                                     | Finds a contact in 0rb1t based on their name.          | `:find John`                                                                                         |
+| Help           | `:help`                                            | Opens the help page.                                   | `:help`                                                                                              |
+| List Contacts  | `:list` or `:list <TAG>`                           | Lists all contacts stored in 0rb1t.                    | `:list`<br/>`:list t/friend`                                                                         |
+| Sorting        | `list s/<FIELD_PREFIX + SIGN>`                     | Sorts all contacts based on the field and the order.   | `:list s/+n`                                                                                         |
+| List Tags      | `:tags`                                            | Lists all the tags used in 0rb1t.                      | `:tags`                                                                                              |
+| View           | `:view <INDEX>`                                    | Views a contact’s details in 0rb1t based on the index. | `:view 4`                                                                                            |
