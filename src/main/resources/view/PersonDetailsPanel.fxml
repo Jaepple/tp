@@ -33,7 +33,7 @@
                 <Label text="Address:" styleClass="field-name" />
                 <Label fx:id="address" styleClass="field-value" />
             </HBox>
-            
+
             <VBox spacing="6">
                 <Label text="Notes:" styleClass="field-name" />
                 <FlowPane fx:id="notes" hgap="8" vgap="8" />
