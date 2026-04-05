@@ -45,6 +45,27 @@ public class NoteListTest {
     }
 
     @Test
+    public void constructor_moreThanMaxNotes_throwsIllegalArgumentException() {
+        List<Note> notes = new ArrayList<>();
+        for (int i = 0; i < NoteList.MAX_NOTES + 1; i++) {
+            notes.add(new Note("Note " + i));
+        }
+
+        assertThrows(IllegalArgumentException.class, NoteList.MESSAGE_MAX_NOTES, () -> new NoteList(notes));
+    }
+
+    @Test
+    public void append_whenAtMaxNotes_throwsIllegalArgumentException() {
+        List<Note> notes = new ArrayList<>();
+        for (int i = 0; i < NoteList.MAX_NOTES; i++) {
+            notes.add(new Note("Note " + i));
+        }
+        NoteList noteList = new NoteList(notes);
+
+        assertThrows(IllegalArgumentException.class, NoteList.MESSAGE_MAX_NOTES, () -> noteList.append("Overflow"));
+    }
+
+    @Test
     public void getAll_modifyReturnedList_throwsUnsupportedOperationException() {
         NoteList noteList = new NoteList(List.of(new Note("Existing")));
 

@@ -126,7 +126,12 @@ class JsonAdaptedPerson {
                 throw new IllegalValueException(Note.MESSAGE_CONSTRAINTS);
             }
         }
-        final NoteList modelNoteList = new NoteList(modelNotes);
+        final NoteList modelNoteList;
+        try {
+            modelNoteList = new NoteList(modelNotes);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalValueException(e.getMessage());
+        }
         final boolean modelIsFavourite = isFavourite != null && isFavourite;
 
         return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelNoteList, modelIsFavourite);

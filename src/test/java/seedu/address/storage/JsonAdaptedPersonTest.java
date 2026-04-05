@@ -38,6 +38,9 @@ public class JsonAdaptedPersonTest {
     private static final List<String> VALID_NOTES = new ArrayList<>();
     private static final List<String> INVALID_NOTES = List.of(" ");
     private static final List<String> TOO_LONG_NOTES = List.of("a".repeat(Note.MAX_LENGTH + 1));
+    private static final List<String> TOO_MANY_NOTES = java.util.stream.IntStream.range(0, NoteList.MAX_NOTES + 1)
+            .mapToObj(i -> "Note " + i)
+            .toList();
 
     @Test
     public void toModelType_validPersonDetails_returnsPerson() throws Exception {
@@ -158,6 +161,14 @@ public class JsonAdaptedPersonTest {
                 new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
                         VALID_TAGS, TOO_LONG_NOTES, false);
         assertThrows(IllegalValueException.class, Note.MESSAGE_CONSTRAINTS, person::toModelType);
+    }
+
+    @Test
+    public void toModelType_tooManyNotes_throwsIllegalValueException() {
+        JsonAdaptedPerson person =
+                new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
+                        VALID_TAGS, TOO_MANY_NOTES, false);
+        assertThrows(IllegalValueException.class, NoteList.MESSAGE_MAX_NOTES, person::toModelType);
     }
 
     @Test
