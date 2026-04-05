@@ -46,13 +46,6 @@ public class NoteList {
     }
 
     /**
-     * Clears all notes.
-     */
-    public NoteList clear() {
-        return new NoteList();
-    }
-
-    /**
      * Returns an unmodifiable view of notes.
      */
     public List<Note> getAll() {
