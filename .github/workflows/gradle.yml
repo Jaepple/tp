@@ -39,19 +39,8 @@ jobs:
       - name: Build and check with Gradle
         run: ./gradlew check coverage
 
-      - name: Generate JaCoCo badge
+      - name: Upload coverage reports to Codecov
         if: runner.os == 'Linux'
-        uses: cicirello/jacoco-badge-generator@v2
+        uses: codecov/codecov-action@v4
         with:
-          jacoco-csv-file: build/reports/jacoco/coverage/coverage.csv
-          badges-directory: .github/badges
-          generate-coverage-badge: true
-
-      - name: Commit and push badge
-        if: runner.os == 'Linux' && github.ref == 'refs/heads/master'
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add .github/badges
-          git commit -m "Update coverage badge" || true
-          git push || true
+          token: ${{ secrets.CODECOV_TOKEN }}
