@@ -3,6 +3,7 @@
   <a href="https://github.com/AY2526S2-CS2103T-T15-4/tp/actions">
     <img src="https://github.com/AY2526S2-CS2103T-T15-4/tp/workflows/Java%20CI/badge.svg" alt="CI Status">
   </a>
+  <img src=".github/badges/jacoco.svg" alt="Coverage">
 </p>
 
 ![Ui](docs/images/Ui.png)
