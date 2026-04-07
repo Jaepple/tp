@@ -72,6 +72,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
 
+        assert editPersonDescriptor.isAnyFieldEdited() : "Parser must reject edit commands with no fields.";
         return new EditCommand(index, editPersonDescriptor);
     }
 
