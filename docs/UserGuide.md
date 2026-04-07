@@ -151,7 +151,9 @@ then the field prefixes of the fields you wish to change, and then the new detai
 - Any tags you wish to remove from the contact, typed after `dt/`, and each additional tag to be removed separated by `dt/`.
 
 Note: If you wish to leave some fields unchanged, you do not have to include them in the `:edit` command.
-Note: Every prefix must be followed by a non-empty value, except `dt/`. `dt/` removes all tags from the contact.
+
+Note: Every prefix must be followed by a non-empty value, except `dt/`. without a tag value removes all tags from the 
+contact, while `dt/<tag>` removes only the specified tag(s).
 
 Format: `:edit <INDEX> n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG] [dt/TAG] ...`
 
