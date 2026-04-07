@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 
@@ -64,7 +65,8 @@ public class EditCommandParser implements Parser<EditCommand> {
             editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTagsToAdd);
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_DELETE_TAG)).ifPresent(editPersonDescriptor::setTagsToRemove);
+        parseDeleteTagsForEdit(argMultimap.getAllValues(PREFIX_DELETE_TAG))
+                .ifPresent(editPersonDescriptor::setTagsToRemove);
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
@@ -85,13 +87,23 @@ public class EditCommandParser implements Parser<EditCommand> {
         return Optional.of(ParserUtil.parseTags(tags));
     }
 
+    private Optional<Set<Tag>> parseDeleteTagsForEdit(Collection<String> tags) throws ParseException {
+        assert tags != null;
+
+        if (tags.isEmpty()) {
+            return Optional.empty();
+        }
+
+        Collection<String> tagsToRemove = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
+        return Optional.of(ParserUtil.parseTags(tagsToRemove));
+    }
+
     private boolean isEmptyValuePresent(ArgumentMultimap argMultimap) {
         return hasEmptyValue(argMultimap.getValue(PREFIX_NAME))
                 || hasEmptyValue(argMultimap.getValue(PREFIX_PHONE))
                 || hasEmptyValue(argMultimap.getValue(PREFIX_EMAIL))
                 || hasEmptyValue(argMultimap.getValue(PREFIX_ADDRESS))
-                || hasAnyEmptyValue(argMultimap.getAllValues(PREFIX_TAG))
-                || hasAnyEmptyValue(argMultimap.getAllValues(PREFIX_DELETE_TAG));
+                || hasAnyEmptyValue(argMultimap.getAllValues(PREFIX_TAG));
     }
 
     private boolean hasEmptyValue(Optional<String> value) {

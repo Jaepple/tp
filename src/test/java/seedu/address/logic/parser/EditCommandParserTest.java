@@ -113,7 +113,6 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1 e/", EditCommand.MESSAGE_EMPTY_FIELD);
         assertParseFailure(parser, "1 a/", EditCommand.MESSAGE_EMPTY_FIELD);
         assertParseFailure(parser, "1" + TAG_EMPTY, EditCommand.MESSAGE_EMPTY_FIELD);
-        assertParseFailure(parser, "1" + DELETE_TAG_EMPTY, EditCommand.MESSAGE_EMPTY_FIELD);
     }
 
     @Test
@@ -209,10 +208,13 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void parse_deleteAllTags_failure() {
+    public void parse_deleteAllTags_success() {
         String userInput = INDEX_THIRD_PERSON.getOneBased() + DELETE_TAG_EMPTY;
 
-        assertParseFailure(parser, userInput, EditCommand.MESSAGE_EMPTY_FIELD);
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withTagsToRemove().build();
+        EditCommand expectedCommand = new EditCommand(INDEX_THIRD_PERSON, descriptor);
+
+        assertParseSuccess(parser, userInput, expectedCommand);
     }
 
     @Test
