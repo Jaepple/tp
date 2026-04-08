@@ -411,8 +411,8 @@ This appendix is intended to supplement the [User Guide](UserGuide.md). It gives
 ### Recommended test flow
 
 1. Start from a clean state so list order and indices are predictable.
-1. Add a few contacts that differ in name, phone, address, tags, and favourite status.
-1. Exercise list filtering and sorting first, because later commands such as `:view`, `:note`, `:favourite`, `:edit`, and `:delete` act on the currently displayed indices.
+1. Add a few contacts that differ in name, phone, address, tags, and star status.
+1. Exercise list filtering and sorting first, because later commands such as `:view`, `:note`, `:star`, `:edit`, and `:delete` act on the currently displayed indices.
 1. Test the single-contact workflows next: viewing details, adding notes, starring and unstarring, and editing tags.
 1. Test the two confirmation-based destructive flows last: `:delete` and `:clear`.
 
@@ -462,7 +462,7 @@ Checks to perform:
 
 * Different prefixes combine with AND logic.
 * Repeating the same prefix uses OR logic.
-* `s/*` pins favourited contacts to the top once at least one contact has been starred.
+* `s/*` pins starred contacts to the top once at least one contact has been starred.
 * `:list` with no arguments restores the full list and resets sorting to the default order.
 
 #### Viewing a contact
@@ -480,10 +480,10 @@ Check that the selected contact is highlighted in the list and that the full det
 Run:
 
 ```text
-:favourite 2
+:star 2
 :list s/* s/+n
 :list
-:unfavourite 2
+:unstar 2
 ```
 
 Check that the star indicator appears and disappears, and that the `s/*` sort keeps starred contacts above non-starred contacts.
