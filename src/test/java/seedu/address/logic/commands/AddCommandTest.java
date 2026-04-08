@@ -201,6 +201,21 @@ public class AddCommandTest {
         public String getFormattedTags() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void setUndoAction(Runnable undoAction) {
+            // no-op for stub
+        }
+
+        @Override
+        public Runnable getUndoAction() {
+            return null;
+        }
+
+        @Override
+        public void clearUndoAction() {
+            // no-op for stub
+        }
     }
 
     /**
