@@ -53,7 +53,7 @@ public class UnstarCommand extends Command {
         Person updatedPerson = personToUnstar.withStar(false);
         model.setPerson(personToUnstar, updatedPerson);
 
-        model.setUndoAction(() -> model.setPerson(updatedPerson, personToUnfavourite));
+        model.setUndoAction(() -> model.setPerson(updatedPerson, personToUnstar));
 
         return CommandResult.createWithPerson(
                 String.format(MESSAGE_UNSTARRED_PERSON_SUCCESS, updatedPerson.getName()),
