@@ -11,26 +11,27 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 /**
- * Marks a person as favourite and pins them to the top of the displayed list.
+ * Removes the star status from a person.
  */
-public class FavouriteCommand extends Command {
+public class UnstarCommand extends Command {
 
-    public static final String COMMAND_WORD = ":favourite";
+    public static final String COMMAND_WORD = ":unstar";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Marks the contact identified by the index number used in the displayed contact list as favourite.\n"
+            + ": Removes the star status from the contact identified by the index number used in"
+            + " the displayed contact list \n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_FAVOURITE_PERSON_SUCCESS =
-            "Starred contact: %1$s";
+    public static final String MESSAGE_UNSTARRED_PERSON_SUCCESS =
+            "Unstarred contact: %1$s";
 
-    public static final String MESSAGE_ALREADY_FAVOURITE =
-            "This contact is already starred.";
+    public static final String MESSAGE_NOT_STARRED =
+            "This contact is not starred.";
 
     private final Index targetIndex;
 
-    public FavouriteCommand(Index targetIndex) {
+    public UnstarCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -43,20 +44,20 @@ public class FavouriteCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Person personToFavourite = lastShownList.get(targetIndex.getZeroBased());
+        Person personToUnstar = lastShownList.get(targetIndex.getZeroBased());
 
-        if (personToFavourite.isFavourite()) {
-            throw new CommandException(MESSAGE_ALREADY_FAVOURITE);
+        if (!personToUnstar.isStarred()) {
+            throw new CommandException(MESSAGE_NOT_STARRED);
         }
 
-        Person favouritedPerson = personToFavourite.withFavourite(true);
-        model.setPerson(personToFavourite, favouritedPerson);
+        Person updatedPerson = personToUnstar.withStar(false);
+        model.setPerson(personToUnstar, updatedPerson);
 
-        model.setUndoAction(() -> model.setPerson(favouritedPerson, personToFavourite));
+        model.setUndoAction(() -> model.setPerson(updatedPerson, personToUnstar));
 
         return CommandResult.createWithPerson(
-                String.format(MESSAGE_FAVOURITE_PERSON_SUCCESS, favouritedPerson.getName()),
-                favouritedPerson
+                String.format(MESSAGE_UNSTARRED_PERSON_SUCCESS, updatedPerson.getName()),
+                updatedPerson
         );
     }
 
@@ -65,10 +66,10 @@ public class FavouriteCommand extends Command {
         if (other == this) {
             return true;
         }
-        if (!(other instanceof FavouriteCommand)) {
+        if (!(other instanceof UnstarCommand)) {
             return false;
         }
-        FavouriteCommand otherCommand = (FavouriteCommand) other;
+        UnstarCommand otherCommand = (UnstarCommand) other;
         return targetIndex.equals(otherCommand.targetIndex);
     }
 }
