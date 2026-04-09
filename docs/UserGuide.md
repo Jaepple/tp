@@ -230,12 +230,9 @@ If tags are added, all contacts with the relevant tags will be made available in
 ### Sorting Contacts
 
 To sort contact by specific fields, type `:list s/` followed by the field you wish to sort by. Use `+`or `-` to sort in either ascending or descending order respectively.
-Typing `s/*` ensures starred contacts are always at the top. The fields you can sort by are:
+Typing `s/*` ensures starred contacts are always at the top.
 
-- The contact’s name, typed after `n/`.
-- The contact’s phone number, typed after `p/`.
-
-Format: `:list s/<FIELD_PREFIX + SIGN>`
+Format: `:list s/<SIGN + FIELD_PREFIX>`
 
 Examples:
 
@@ -243,12 +240,12 @@ Examples:
 
 `:list s/* s/-a`
 
-Expected: The list of contacts will be sorted based on the paramter and in the order specified. If s/* was used, starred contacts will be pinned at the top.
+Expected: The list of contacts will be sorted based on the parameter and in the order specified. If s/* was used, starred contacts will be pinned at the top.
 
 ### Starring Contacts
 
 To star a contact, type `:star` followed by the index of the contact.
-To unstar, type `:star` followed by the index of the contact.
+To unstar, type `:unstar` followed by the index of the contact.
 
 Note: Starred contacts are indicated by a star next to the contact name. They are persisted and stored in the contact's data.
 
