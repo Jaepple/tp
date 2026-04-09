@@ -52,6 +52,8 @@ public class StarCommand extends Command {
         Person starredPerson = personToStar.withStar(true);
         model.setPerson(personToStar, starredPerson);
 
+        model.setUndoAction(() -> model.setPerson(favouritedPerson, personToFavourite));
+
         return CommandResult.createWithPerson(
                 String.format(MESSAGE_STARRED_PERSON_SUCCESS, starredPerson.getName()),
                 starredPerson

@@ -114,7 +114,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_deleteCommand_nonYesInputCancels() throws Exception {
+    public void execute_deleteCommand_noInputCancels() throws Exception {
         Person amy = new PersonBuilder(AMY).withTags().build();
         model.addPerson(amy);
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
@@ -125,6 +125,27 @@ public class LogicManagerTest {
         assertEquals(LogicManager.MESSAGE_COMMAND_CANCELLED, cancelResult.getFeedbackToUser());
         // Model should be unchanged — person not deleted
         assertFalse(cancelResult.isAwaitingConfirmation());
+        assertEquals(expectedModel, model);
+    }
+
+    @Test
+    public void execute_deleteCommand_arbitraryInputKeepsPending() throws Exception {
+        Person amy = new PersonBuilder(AMY).withTags().build();
+        model.addPerson(amy);
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+
+        logic.execute(":delete 1");
+
+        // Arbitrary input should not cancel — confirmation stays pending
+        CommandResult result = logic.execute(":list");
+        assertEquals(LogicManager.MESSAGE_PENDING_CONFIRMATION, result.getFeedbackToUser());
+        assertEquals(expectedModel, model);
+
+        // Can still confirm after arbitrary input
+        CommandResult confirmResult = logic.execute("yes");
+        expectedModel.deletePerson(amy);
+        assertEquals(String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, Messages.format(amy)),
+                confirmResult.getFeedbackToUser());
         assertEquals(expectedModel, model);
     }
 

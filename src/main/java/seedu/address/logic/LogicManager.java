@@ -27,6 +27,9 @@ public class LogicManager implements Logic {
 
     public static final String MESSAGE_COMMAND_CANCELLED = "Command cancelled.";
 
+    public static final String MESSAGE_PENDING_CONFIRMATION =
+            "Pending confirmation. Type 'yes' to confirm or 'no' to cancel.";
+
     public static final String FILE_OPS_PERMISSION_ERROR_FORMAT =
             "Could not save data to file %s due to insufficient permissions to write to the file or the folder.";
 
@@ -54,13 +57,15 @@ public class LogicManager implements Logic {
         String trimmedInput = commandText.trim().toLowerCase(java.util.Locale.ROOT);
 
         if (pendingConfirmation != null) {
-            Supplier<CommandResult> action = pendingConfirmation;
-            pendingConfirmation = null;
-
             if (trimmedInput.equals("yes")) {
+                Supplier<CommandResult> action = pendingConfirmation;
+                pendingConfirmation = null;
                 commandResult = action.get();
-            } else {
+            } else if (trimmedInput.equals("no")) {
+                pendingConfirmation = null;
                 commandResult = new CommandResult(MESSAGE_COMMAND_CANCELLED);
+            } else {
+                commandResult = new CommandResult(MESSAGE_PENDING_CONFIRMATION);
             }
         } else {
             Command command = addressBookParser.parseCommand(commandText);
