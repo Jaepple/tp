@@ -19,7 +19,8 @@ public class StarCommandParserTest {
     public void parse_validArgs_returnsStarCommand() throws ParseException {
         // Valid index
         Index validIndex = INDEX_FIRST_PERSON;
-        String userInput = "1";  // valid input
+        // Valid input
+        String userInput = "1";
 
         StarCommand expectedCommand = new StarCommand(validIndex);
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -51,15 +52,18 @@ public class StarCommandParserTest {
     @Test
     public void parse_missingParts_failure() {
         // No index specified
-        assertParseFailure(parser, "", String.format(MESSAGE_INVALID_COMMAND_FORMAT, StarCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                StarCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_invalidPreamble_failure() {
         // Random string before index
-        assertParseFailure(parser, "1 some random string", String.format(MESSAGE_INVALID_COMMAND_FORMAT, StarCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "1 some random string", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                StarCommand.MESSAGE_USAGE));
 
         // Invalid prefix being parsed as preamble
-        assertParseFailure(parser, "1 i/ string", String.format(MESSAGE_INVALID_COMMAND_FORMAT, StarCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "1 i/ string", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                StarCommand.MESSAGE_USAGE));
     }
 }
