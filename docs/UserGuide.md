@@ -98,7 +98,7 @@ Notes follow these constraints:
 - Each contact can have up to 20 notes.
 - Each note can be at most 200 characters long.
 - Formatting-related special characters, such as escape sequences (\n, \t), quotation marks, backslashes, and markup like HTML or Markdown, are not interpreted.
-- notes are displayed exactly as entered.
+- Notes are displayed exactly as entered.
 
 Format: `:note <INDEX> note`
 
@@ -120,8 +120,8 @@ Example:
 
 `:clear`
 
-Are you sure you want to clear the entire 0rb1t?
-Type 'yes' to confirm. Any other input will be taken as no.
+_Are you sure you want to clear the entire 0rb1t?
+Type 'yes' to confirm. Any other input will be taken as no._
 
 `yes`
 
@@ -137,10 +137,9 @@ Example:
 
 `:delete 1`
 
-*A confirmation prompt is displayed:*\
-Are you sure you want to delete this contact?\
+_Are you sure you want to delete this contact?\
 \<Contact details\>\
-Type 'yes' to confirm. Any other input will be taken as no.
+Type 'yes' to confirm. Any other input will be taken as no._
 
 `yes`
 
@@ -160,10 +159,10 @@ then the field prefixes of the fields you wish to change, and then the new detai
 
 Note: If you wish to leave some fields unchanged, you do not have to include them in the `:edit` command.
 
-Note: Every prefix must be followed by a non-empty value, except `dt/`. without a tag value removes all tags from the 
+Note: Every prefix must be followed by a non-empty value, except `dt/`. `dt/` without a tag value removes all tags from the 
 contact, while `dt/<tag>` removes only the specified tag(s).
 
-Format: `:edit <INDEX> n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG] [dt/TAG] ...`
+Format: `:edit <INDEX> [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [dt/TAG] ...`
 
 Examples:
 
