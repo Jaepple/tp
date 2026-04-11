@@ -232,7 +232,8 @@ public class EditCommandTest {
 
     @Test
     public void execute_addTagsBeyondMax_failure() {
-        Person personWithMaxTags = new PersonBuilder(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()))
+        Person personWithMaxTags = new PersonBuilder(
+                model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()))
                 .withTags("t1", "t2", "t3", "t4", "t5", "t6", "t7", "t8", "t9", "t10")
                 .build();
         model.setPerson(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()), personWithMaxTags);
