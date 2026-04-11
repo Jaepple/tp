@@ -97,6 +97,8 @@ To add a contact, simply type `:add` followed by the details of the contact you 
 
 Note: All parameters are required except for tags. A contact can have any number of tags (including 0).
 
+Note: Tags are automatically converted to lowercase when added. For example, `t/Friend` will be stored as `friend`.
+
 Format: `:add n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]...`
 
 Examples:
@@ -184,6 +186,8 @@ Note: If you wish to leave some fields unchanged, you do not have to include the
 
 Note: Every prefix must be followed by a non-empty value, except `dt/`. `dt/` without a tag value removes all tags from the 
 contact, while `dt/<tag>` removes only the specified tag(s).
+
+Note: Tags added with `t/` are automatically converted to lowercase before being stored.
 
 Format: `:edit <INDEX> [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [dt/TAG] ...`
 
@@ -277,7 +281,7 @@ Expected: The contact at the given index will have a star icon next to their nam
 
 To display all the tags that you have added in 0rb1t, type `:tags` and all the tags you have added will be shown, with each tag separated by a comma.
 
-Note: Tags are displayed in alphabetical order, and each tag is shown only once even if multiple contacts have the same tag. Tags are case-sensitive; for example, “friend” and “Friend” are treated as two distinct tags.
+Note: Tags are displayed in alphabetical order, and each tag is shown only once even if multiple contacts have the same tag. Tags are stored in lowercase, so entering `Friend` and `friend` results in the same tag: `friend`.
 
 Format: `:tags`
 
@@ -355,7 +359,7 @@ The following enhancements are planned for future releases:
 | Command        | Format                                         | Description                                            | Example                                                                                              |
 |----------------|------------------------------------------------|--------------------------------------------------------|------------------------------------------------------------------------------------------------------|
 | Access History | `UP` or `DOWN`                                 | Navigates to previously used commands.                 | `UP` or `DOWN`                                                                                       |
-| Add Contact    | `:add n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]...` | Adds a contact to 0rb1t.                               | `:add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney` |
+| Add Contact    | `:add n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]...` | Adds a contact to 0rb1t. Tags are stored in lowercase. | `:add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney` |
 | Add Note       | `:note <INDEX> note`                           | Adds a note to the contact.                            | `:note 2 This is an important contact.`                                                              |
 | Clear          | `:clear` + `yes`                               | Clears the entire 0rb1t.                               | `:clear`<br/>`...`<br/>`yes`                                                                         |
 | Delete         | `:delete <INDEX>` + `yes`                      | Deletes a contact from 0rb1t.                          | `:delete 2`<br/>`...`<br/>`yes`                                                                      |
