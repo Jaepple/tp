@@ -755,9 +755,11 @@ Expected: A preview of the first displayed contact is shown and the app asks for
 Test case: After `:delete 1`, enter `yes`.  
 Expected: The contact is deleted from the list.
 
-Test case: After `:delete 1`, enter any input other than `yes`.  
+Test case: After `:delete 1`, enter `no`.  
 Expected: The deletion is cancelled.
 
+Test case: After `:delete 1`, enter any other input, such as `maybe`.  
+Expected: The contact is not deleted. The confirmation remains pending and a reminder is shown.
 Test case: `:delete 0`  
 Expected: No contact is deleted. An error message is shown.
 
