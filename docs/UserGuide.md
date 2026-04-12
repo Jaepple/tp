@@ -95,7 +95,11 @@ To add a contact, simply type `:add` followed by the details of the contact you 
 - The contact’s house address, typed after `a/`.
 - Any tags you wish to identify the contact with, typed after `t/`, and each additional tag after the first one separated by `t/`.
 
-Note: All parameters are required except for tags. A contact can have any number of tags (including 0).
+Note: All parameters are required except for tags. A contact can have up to 10 tags.
+
+Note: Tags are automatically converted to lowercase when added. For example, `t/Friend` will be stored as `friend`.
+
+Note: Adding more than 10 tags to a single contact is not allowed.
 
 Format: `:add n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]...`
 
@@ -184,6 +188,10 @@ Note: If you wish to leave some fields unchanged, you do not have to include the
 
 Note: Every prefix must be followed by a non-empty value, except `dt/`. `dt/` without a tag value removes all tags from the 
 contact, while `dt/<tag>` removes only the specified tag(s).
+
+Note: Tags added with `t/` are automatically converted to lowercase before being stored.
+
+Note: A contact can only have at most 10 tags after the edit is applied.
 
 Format: `:edit <INDEX> [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [dt/TAG] ...`
 
@@ -277,7 +285,7 @@ Expected: The contact at the given index will have a star icon next to their nam
 
 To display all the tags that you have added in 0rb1t, type `:tags` and all the tags you have added will be shown, with each tag separated by a comma.
 
-Note: Tags are displayed in alphabetical order, and each tag is shown only once even if multiple contacts have the same tag. Tags are case-sensitive; for example, “friend” and “Friend” are treated as two distinct tags.
+Note: Tags are displayed in alphabetical order, and each tag is shown only once even if multiple contacts have the same tag. Tags are stored in lowercase, so entering `Friend` and `friend` results in the same tag: `friend`.
 
 Format: `:tags`
 
