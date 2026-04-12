@@ -773,9 +773,11 @@ Expected: A confirmation prompt is shown.
 Test case: After `:clear`, enter `yes`.  
 Expected: All contacts are removed.
 
-Test case: After `:clear`, enter any input other than `yes`.  
+Test case: After `:clear`, enter `no`.  
 Expected: The clear action is cancelled.
 
+Test case: After `:clear`, enter an input other than `yes` or `no`.  
+Expected: The clear action is not performed, and the confirmation remains pending (for example, the app reminds the user to reply with `yes` or `no`).
 ### Undoing the last action
 
 Prerequisites: A successful mutating command has just been executed.
