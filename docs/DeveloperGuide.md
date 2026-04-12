@@ -802,7 +802,7 @@ Expected: The last successful change is still present after relaunch.
 Prerequisites: Close the app and delete the existing address book data file.
 
 Test case: Launch the app again.  
-Expected: The app starts successfully with sample data or a clean address book state.
+Expected: The app starts successfully with sample data.
 
 **Corrupted data file**
 
