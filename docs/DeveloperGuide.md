@@ -519,7 +519,7 @@ For all use cases below, the **System** is 0rb1t and the **Actor** is the user, 
 1. User requests to list contacts.
 2. 0rb1t shows a list of contacts.
 3. User requests to delete a specific contact in the list.
-4. 0rb1t shows a preview of the contact and asks for confirmation.
+4. 0rb1t asks for confirmation.
 5. User inputs `yes`.
 6. 0rb1t deletes the contact.
 
@@ -542,6 +542,11 @@ For all use cases below, the **System** is 0rb1t and the **Actor** is the user, 
   - 5a1. 0rb1t cancels the deletion.
 
     Use case ends.
+
+- 5b. The user inputs any input other than `yes` and `no`.
+
+  Use case resumes from step 4.
+
 
 #### Use case: Filter contacts by criterion
 
