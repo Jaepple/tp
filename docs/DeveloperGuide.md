@@ -437,14 +437,16 @@ pinned above non-starred contacts.
 
 **Target user profile**:
 
-- developers who manage a moderate to large number of contacts
+Developers who:
+
+- manage a moderate to large number of contacts
 - prefer keyboard-driven workflows over mouse-heavy interaction
 - can type quickly
 - are comfortable using command-based desktop applications
 - want fast access to contact details, tags, and lightweight notes
 - often need to organize contacts by role, project, or context
 
-**Value proposition**: Vim-ify the experience for developers who are more used to the Vim interface — provide a keyboard-first, modal interaction model that lets developers navigate and edit contacts without leaving the keyboard so they feel comfortable and at home.
+**Value proposition**: Vim-ify the experience for developers who are more used to the Vim interface — provide a keyboard-first interaction model that lets developers navigate and edit contacts without leaving the keyboard so they feel comfortable and at home.
 
 ### User stories
 
@@ -457,30 +459,50 @@ Priorities: High (must have) - `***`, Medium (nice to have) - `**`, Low (unlikel
 | `***`    | developer                                               | add a contact with a name, phone number, email, and address    | store essential contact details                              |
 | `***`    | developer                                               | list all contacts                                              | review everyone I have added                                 |
 | `***`    | developer                                               | search for contacts by name                                    | find someone without scanning the whole list                 |
-| `***`    | developer                                               | view the full details of a selected contact                    | verify I have selected the correct person                    |
-| `***`    | developer                                               | edit a contact's details                                       | keep outdated information up to date                         |
-| `***`    | developer                                               | preview a contact before deleting them                         | avoid deleting the wrong person                              |
+| `***`    | developer                                               | select a contact                                               | view the full details of a contact                           |
+| `***`    | developer                                               | edit a contact's details                                       | keep information up to date                                  |
+| `***`    | developer                                               | preview a contact and receive confirmation before deleting them | avoid deleting the wrong person                              |
 | `***`    | developer                                               | receive confirmation before clearing the entire list           | avoid accidental mass deletion                               |
 | `***`    | developer                                               | undo my last mutating action                                   | recover from mistakes quickly                                |
 | `***`    | developer                                               | retrieve a phone number quickly                                | call someone immediately                                     |
 | `***`    | developer                                               | retrieve an email address quickly                              | message someone immediately                                  |
+| `***`    | developer                                               | retrieve an address quickly                                    | visit someone immediately                                    |
 | `**`     | developer organizing contacts by role or project        | assign tags when adding a contact                              | categorize contacts immediately                              |
 | `**`     | developer organizing contacts by role or project        | filter contacts by tag                                         | focus on a relevant group of contacts                        |
-| `**`     | developer with many contacts                            | search using multiple filters such as name and tag together    | narrow down results more precisely                           |
-| `**`     | developer maintaining a contact list with unique names  | rely on names to uniquely identify contacts                    | avoid duplicate entries and ambiguous matches                |
+| `**`     | developer with many contacts                            | search using multiple filters                                  | narrow down results more precisely                           |
 | `**`     | developer with many contacts                            | sort contacts meaningfully                                     | find contacts faster                                         |
 | `**`     | developer maintaining a shortlist of important contacts | mark certain contacts as favourites                            | access frequently used contacts more quickly                 |
-| `**`     | developer maintaining contact context over time         | add notes to a contact                                         | keep lightweight context about previous interactions         |
 | `**`     | developer organizing contacts by role or project        | add tags to an existing contact without overwriting the others | update roles over time without losing information            |
 | `**`     | developer organizing contacts by role or project        | remove specific tags from a contact                            | keep tag data accurate                                       |
 | `**`     | developer organizing contacts by role or project        | view all tags currently in use                                 | understand how my contacts are organized                     |
-| `**`     | developer who prefers keyboard-driven workflows         | use a keyboard-first workflow                                  | work efficiently without relying on mouse-driven interaction |
-| `*`      | developer keeping richer contact records                | store address information                                      | keep richer contact details in one place                     |
-| `*`      | developer who remembers contacts by location            | search by address text                                         | find someone by location-related information                 |
 
 ### Use cases
 
 For all use cases below, the **System** is 0rb1t and the **Actor** is the user, unless specified otherwise.
+
+#### Use case: Add contact
+
+**MSS**
+
+1. User requests to add a contact with valid details.
+2. 0rb1t adds the contact.
+3. 0rb1t shows the updated contact list.
+
+   Use case ends.
+
+**Extensions**
+
+- 1a. The command contains invalid input.
+
+  - 1a1. 0rb1t shows an error message.
+
+    Use case ends.
+
+- 1b. A contact with the same name already exists.
+
+  - 1b1. 0rb1t shows an error message explaining that contacts with duplicate names are not allowed.
+
+    Use case ends.
 
 #### Use case: Delete contact
 
@@ -502,11 +524,13 @@ For all use cases below, the **System** is 0rb1t and the **Actor** is the user, 
   Use case ends.
 
 - 3a. The given index is invalid.
+
   - 3a1. 0rb1t shows an error message.
 
-    Use case resumes at step 3.
+    Use case resumes from step 2.
 
 - 5a. The user does not confirm the deletion.
+
   - 5a1. 0rb1t cancels the deletion.
 
     Use case ends.
@@ -523,6 +547,7 @@ For all use cases below, the **System** is 0rb1t and the **Actor** is the user, 
 **Extensions**
 
 - 1a. The given filter is invalid.
+
   - 1a1. 0rb1t shows an error message.
 
     Use case ends.
@@ -543,6 +568,7 @@ For all use cases below, the **System** is 0rb1t and the **Actor** is the user, 
 **Extensions**
 
 - 1a. The given sort criterion is invalid.
+
   - 1a1. 0rb1t shows an error message.
 
     Use case ends.
@@ -551,15 +577,15 @@ For all use cases below, the **System** is 0rb1t and the **Actor** is the user, 
 
 **MSS**
 
-1. User performs a mutating action.
-2. User requests to undo the last action.
-3. 0rb1t reverses the last mutating action.
+1. User requests to undo the last action.
+2. 0rb1t reverses the last mutating action.
 
    Use case ends.
 
 **Extensions**
 
 - 2a. There is no action to undo.
+
   - 2a1. 0rb1t shows an error message.
 
     Use case ends.
@@ -582,17 +608,20 @@ For all use cases below, the **System** is 0rb1t and the **Actor** is the user, 
   Use case ends.
 
 - 3a. The given index is invalid.
+
   - 3a1. 0rb1t shows an error message.
 
-    Use case resumes at step 2.
+    Use case resumes from step 2.
 
 - 3b. The edit command contains invalid input.
+
   - 3b1. 0rb1t shows an error message.
 
     Use case ends.
 
-- 4a. The edited contact would have the same name as an existing contact.
-  - 4a1. 0rb1t shows an error message explaining that contacts with duplicate names are not allowed.
+- 3c. The edited contact would have the same name as an existing contact.
+
+  - 3c1. 0rb1t shows an error message explaining that contacts with duplicate names are not allowed.
 
     Use case ends.
 
@@ -600,16 +629,14 @@ For all use cases below, the **System** is 0rb1t and the **Actor** is the user, 
 
 1. Should work on any mainstream OS as long as it has Java 17 or above installed.
 2. Should be able to hold up to 1000 contacts without noticeable sluggishness in typical usage.
-3. A developer with above-average typing speed should be able to complete most common tasks faster using commands than using mouse-driven interaction.
-4. Should automatically persist contact data after every successful mutating command.
-5. Should display an informative error message within 1 second when a command fails due to invalid syntax, invalid indices, or invalid field values.
-6. Should require explicit confirmation before destructive actions such as deleting a contact or clearing the address book.
-7. Should complete common commands such as `:list`, `:view`, and `:tags` within 1 second under normal usage conditions.
-8. Should be ready for use within 2 seconds after launch under normal usage conditions.
-9. Should remain usable at screen resolutions of 1280x720 and above.
-10. Should allow the main contact-management workflows to be completed without requiring mouse interaction.
-11. The packaged application should not exceed 100 MB as a single distributable JAR file.
-12. Should preserve contacts, notes, tags, and starred state across application restarts unless the user explicitly removes them.
+3. Should automatically persist contact data after every successful mutating command.
+4. Should display an informative error message within 1 second when a command fails due to invalid syntax, invalid indices, or invalid field values.
+5. Should complete common commands such as `:list`, `:view`, and `:tags` within 1 second under normal usage conditions.
+6. Should be ready for use within 2 seconds after launch under normal usage conditions.
+7. Should remain usable at screen resolutions of 1280x720 and above.
+8. Should allow the main contact-management workflows to be completed without requiring mouse interaction.
+9. The packaged application should not exceed 100 MB as a single distributable JAR file.
+10. Should preserve contacts, notes, tags, and starred state across application restarts unless the user explicitly removes them.
 
 ### Glossary
 
@@ -637,7 +664,7 @@ work from; testers are expected to do more exploratory testing.
 
 Prerequisites: Download the JAR file and copy it into an empty folder.
 
-Test case: Double-click the JAR file.  
+Test case: Run `java -jar <jar-file-name>.jar`.  
 Expected: The GUI appears with a set of sample contacts. The initial window size may not be optimal.
 
 **Saving window preferences**
@@ -656,21 +683,21 @@ Expected: All contacts are shown in the default order.
 
 **Filtering by a single criterion**
 
-Test case: `:list t/core`  
-Expected: Only contacts tagged `core` are shown.
+Test case: `:list t/friends`  
+Expected: Only contacts tagged `friends` are shown.
 
-Test case: `:list n/Ali`  
-Expected: Only contacts whose names contain `Ali` are shown.
+Test case: `:list n/Alex`  
+Expected: Only contacts whose names contain `Alex` are shown.
 
 **Filtering by multiple criteria**
 
-Test case: `:list t/core n/Grace`  
-Expected: Only contacts that satisfy both criteria are shown.
+Test case: `:list t/friends n/Bernice`  
+Expected: Only contacts tagged `friends` whose names contain `Bernice` are shown.
 
-**Using repeated values for the same criterion**
+**Filtering with multiple values for the same criterion**
 
-Test case: `:list n/Ada n/Alicia`  
-Expected: Contacts matching either name filter are shown.
+Test case: `:list n/Alex n/Roy`  
+Expected: Only contacts whose names contain `Alex` or `Roy` are shown.
 
 **Sorting contacts**
 
@@ -678,7 +705,7 @@ Test case: `:list s/+n`
 Expected: Contacts are listed in ascending name order.
 
 Test case: `:list s/-p`  
-Expected: Contacts are listed in descending phone order.
+Expected: Contacts are listed in descending lexicographical phone order.
 
 Test case: `:list s/* s/+n`  
 Expected: Starred contacts are pinned above non-starred contacts, and each group is ordered by name.
@@ -737,10 +764,10 @@ Expected: All tags currently in use are shown once each in alphabetical order.
 Prerequisites: There is at least one contact in the currently displayed list.
 
 Test case: `:star 1`  
-Expected: The first displayed contact becomes starred.
+Expected: The first displayed contact is starred if it is not starred.
 
 Test case: `:unstar 1`  
-Expected: The first displayed contact is no longer starred.
+Expected: The first displayed contact is unstarred if it is starred.
 
 Test case: `:star 0`  
 Expected: No contact is starred. An error message is shown.
@@ -750,7 +777,7 @@ Expected: No contact is starred. An error message is shown.
 Prerequisites: List all contacts using `:list`. There are multiple contacts in the displayed list.
 
 Test case: `:delete 1`  
-Expected: A preview of the first displayed contact is shown and the app asks for confirmation.
+Expected: A preview of the first displayed contact is shown in the result box and the app asks for confirmation.
 
 Test case: After `:delete 1`, enter `yes`.  
 Expected: The contact is deleted from the list.
@@ -760,6 +787,7 @@ Expected: The deletion is cancelled.
 
 Test case: After `:delete 1`, enter any other input, such as `maybe`.  
 Expected: The contact is not deleted. The confirmation remains pending and a reminder is shown.
+
 Test case: `:delete 0`  
 Expected: No contact is deleted. An error message is shown.
 
@@ -776,17 +804,15 @@ Expected: All contacts are removed.
 Test case: After `:clear`, enter `no`.  
 Expected: The clear action is cancelled.
 
-Test case: After `:clear`, enter an input other than `yes` or `no`.  
-Expected: The clear action is not performed, and the confirmation remains pending (for example, the app reminds the user to reply with `yes` or `no`).
+Test case: After `:clear`, enter any other input, such as `maybe`.  
+Expected: The address book is not cleared. The confirmation remains pending and a reminder is shown.
+
 ### Undoing the last action
 
-Prerequisites: A successful mutating command has just been executed.
+Prerequisites: A successful mutating command has just been executed in the same session.
 
 Test case: `:undo`  
 Expected: The most recent mutating action is reversed.
-
-Test case: `:undo` when there is no stored undo action.  
-Expected: No state is changed. An error message is shown.
 
 ### Saving data
 
