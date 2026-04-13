@@ -15,6 +15,11 @@
 
 - The overall project structure and parts of the original codebase were adapted from [AddressBook-Level3](https://github.com/se-edu/addressbook-level3).
 - The structure of this developer guide was adapted from the [AddressBook-Level4 Developer Guide](https://se-education.org/addressbook-level4/DeveloperGuide.html).
+- The team also used AI-assisted development tools during the project:
+  - Eunice used Copilot to assist with code writing, especially for writing test cases.
+  - Jaeden used Codex to update `DarkTheme.css` for UI improvements and to brainstorm additional tests from written test cases, and used Copilot autocomplete to assist with code writing.
+  - Kavish used Codex to add more extensive test cases and polish the developer guide, and used Copilot autocomplete to assist with code writing.
+  - Harron used ChatGPT to assist with merge conflicts.
 
 ---
 
